@@ -5,3 +5,7 @@ from django.shortcuts import render
 
 def main_view(request):
     return render(request, 'app_main/index.html')
+
+
+def sign_view(request):
+    return render(request, 'app_main/sign.html')

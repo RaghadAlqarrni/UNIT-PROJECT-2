@@ -1,0 +1,76 @@
+
+{% extends 'app_main/base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-5 text-center">
+            <img src="/static/img/logo2.png" class="animation-jump img-fluid " alt="Logo">
+        </div>
+
+        <div class="col-lg-7 col-sm-12">
+            <div class="form-custom-wrap p-4 border rounded shadow-sm bg-white">
+                <div class="mb-3 text-center">
+                    <h3 class="heading-title">Sign Up As invester</h3>
+                    <p>Already have an account? <a href="/login" class="fw-bold fsfs">Sign In</a></p>
+                </div>
+
+                <form name="changePasswordFm">
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input name="email" type="email" id="signupEmail" class="form-control" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 mb-3">
+                            <label class="form-label">First Name</label>
+                            <input name="firstName" type="text" id="signupFirstName" class="form-control" required>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <label class="form-label">Last Name</label>
+                            <input name="lastName" type="text" id="signupLastName" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Nationality</label>
+                            <select name="nationality" class="form-select" required>
+                                <option value="" disabled selected>Select...</option>
+                                <option value="SA">Saudi Arabia</option>
+                                <option value="US">United States</option>
+                                <option value="UK">United Kingdom</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Country of Residency</label>
+                            <select name="residency" class="form-select" required>
+                                <option value="" disabled selected>Select...</option>
+                                <option value="SA">Saudi Arabia</option>
+                                <option value="US">United States</option>
+                                <option value="UK">United Kingdom</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Passport Number</label>
+                        <input name="passportNumber" type="text" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input name="phone" type="tel" class="form-control" required>
+                    </div>
+
+                    <div class="text-center">
+                        <button id="signupSubmit" type="submit" class="btn btn-primary w-100">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
