@@ -1,0 +1,29 @@
+{% extends 'app_main/base.html' %}
+{% block title %}Verify OTP{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card p-4 shadow-sm">
+                <h3 class="text-center">Enter OTP</h3>
+                <p class="text-center">We've sent a verification code to your phone.</p>
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">OTP Code</label>
+                        <input type="text" name="otp" class="form-control" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Verify</button>
+                </form>
+
+                <p class="text-center mt-3">
+                    Didn't receive the code? <a href="{% url 'app_main:resend_otp' %}">Resend OTP</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
