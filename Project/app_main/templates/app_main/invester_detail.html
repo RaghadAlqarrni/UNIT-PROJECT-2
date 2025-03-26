@@ -1,96 +1,116 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investor Details</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+{% extends 'app_main/base.html' %}
+{% block title %}home{% endblock %}
+
+{% block content %}
+
+
+<body class="bg-light">
     <div class="container mt-5">
-        <h2 class="text-center">Investor Details</h2>
-        <form>
-            <div class="mb-3">
-                <label class="form-label">Passport Number</label>
-                <input type="text" class="form-control" placeholder="Enter passport number" required>
-            </div>
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label class="form-label">First Name</label>
-                    <input type="text" class="form-control" placeholder="First Name" required>
+        <div class="card shadow-lg p-4 rounded" style="max-width: 600px; margin: auto;">
+            <h2 class="text-center text-primary mb-4">Investor Details</h2>
+            <form>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Passport Number</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-passport"></i></span>
+                        <input type="text" class="form-control" placeholder="Enter passport number" required>
+                    </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label class="form-label">Middle Name</label>
-                    <input type="text" class="form-control" placeholder="Middle Name">
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-bold">First Name</label>
+                        <input type="text" class="form-control" placeholder="First Name" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-bold">Middle Name</label>
+                        <input type="text" class="form-control" placeholder="Middle Name">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-bold">Last Name</label>
+                        <input type="text" class="form-control" placeholder="Last Name" required>
+                    </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label class="form-label">Last Name</label>
-                    <input type="text" class="form-control" placeholder="Last Name" required>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Sources of Income</label>
+                    <select class="form-select" multiple>
+                        <option>Employment Income</option>
+                        <option>Business Income</option>
+                        <option>Investment Income</option>
+                        <option>Passive Income</option>
+                        <option>Government and Social Support</option>
+                        <option>Other Income Sources</option>
+                    </select>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Sources of Income</label>
-                <select class="form-control" multiple>
-                    <option>Employment Income</option>
-                    <option>Business Income</option>
-                    <option>Investment Income</option>
-                    <option>Passive Income</option>
-                    <option>Government and Social Support</option>
-                    <option>Other Income Sources</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Employment Status</label>
-                <select class="form-control">
-                    <option>Select employment status</option>
-                    <option>Employed</option>
-                    <option>Unemployed</option>
-                    <option>Self-employed</option>
-                    <option>Retired</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Monthly Income</label>
-                <select class="form-control">
-                    <option>Select your monthly income</option>
-                    <option>Less than $1,000</option>
-                    <option>$1,000 - $5,000</option>
-                    <option>$5,000 - $10,000</option>
-                    <option>More than $10,000</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Are you the beneficial owner of the account?</label><br>
-                <input type="radio" name="owner" value="Yes" required> Yes
-                <input type="radio" name="owner" value="No" required> No
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Investor Type</label>
-                <select class="form-control">
-                    <option>Retail Investor</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Investment Size</label>
-                <select class="form-control">
-                    <option>Select investment size</option>
-                    <option>Small</option>
-                    <option>Medium</option>
-                    <option>Large</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Preferred Investment Segment</label>
-                <select class="form-control">
-                    <option>Select preferred investment segment</option>
-                </select>
-            </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" required>
-                <label class="form-check-label">I agree to the Terms and Conditions and Privacy Policy</label>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Submit</button>
-        </form>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Employment Status</label>
+                    <select class="form-select">
+                        <option selected disabled>Select employment status</option>
+                        <option>Employed</option>
+                        <option>Unemployed</option>
+                        <option>Self-employed</option>
+                        <option>Retired</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Monthly Income</label>
+                    <select class="form-select">
+                        <option selected disabled>Select your monthly income</option>
+                        <option>Less than $1,000</option>
+                        <option>$1,000 - $5,000</option>
+                        <option>$5,000 - $10,000</option>
+                        <option>More than $10,000</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Are you the beneficial owner of the account?</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="owner" value="Yes" required>
+                        <label class="form-check-label">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="owner" value="No" required>
+                        <label class="form-check-label">No</label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Investor Type</label>
+                    <select class="form-select">
+                        <option>Retail Investor</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Investment Size</label>
+                    <select class="form-select">
+                        <option selected disabled>Select investment size</option>
+                        <option>Small</option>
+                        <option>Medium</option>
+                        <option>Large</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Preferred Investment Segment</label>
+                    <select class="form-select">
+                        <option selected disabled>Select preferred investment segment</option>
+                    </select>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" required>
+                    <label class="form-check-label">I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></label>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </form>
+        </div>
     </div>
-</body>
-</html>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

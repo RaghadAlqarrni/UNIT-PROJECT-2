@@ -1,29 +1,91 @@
 {% extends 'app_main/base.html' %}
 {% block title %}Verify OTP{% endblock %}
-
 {% block content %}
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card p-4 shadow-sm">
-                <h3 class="text-center">Enter OTP</h3>
-                <p class="text-center">We've sent a verification code to your phone.</p>
 
-                <form method="POST">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label class="form-label">OTP Code</label>
-                        <input type="text" name="otp" class="form-control" required>
-                    </div>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-4 shadow-lg" style="max-width: 400px; width: 100%;">
+        <h3 class="text-center text-primary fw-bold">Enter OTP</h3>
+        <p class="text-center text-muted">We've sent a verification code to your phone.</p>
 
-                    <button type="submit" class="btn btn-primary w-100">Verify</button>
-                </form>
-
-                <p class="text-center mt-3">
-                    Didn't receive the code? <a href="{% url 'app_main:resend_otp' %}">Resend OTP</a>
-                </p>
+        <!-- ✅ عرض رسائل الخطأ والنجاح -->
+        {% if messages %}
+            <div class="alert alert-info">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
             </div>
-        </div>
+        {% endif %}
+
+        <!-- ✅ نموذج إدخال OTP -->
+        <form method="POST">
+            {% csrf_token %}
+            <div class="d-flex justify-content-between">
+                <input type="text" name="otp1" class="otp-input form-control text-center" maxlength="1" required autofocus>
+                <input type="text" name="otp2" class="otp-input form-control text-center" maxlength="1" required>
+                <input type="text" name="otp3" class="otp-input form-control text-center" maxlength="1" required>
+                <input type="text" name="otp4" class="otp-input form-control text-center" maxlength="1" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-3">Verify</button>
+        </form>
+
+        <p class="text-center mt-3">
+            Didn't receive the code? <a href="{% url 'app_main:resend_otp' %}" class="fw-bold">Resend OTP</a>
+        </p>
     </div>
 </div>
+
+<!-- ✅ تحسين تجربة المستخدم عبر JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const otpInputs = document.querySelectorAll('.otp-input');
+
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1 && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === "Backspace" && index > 0 && !e.target.value) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+        });
+    });
+</script>
+
+<!-- ✅ تحسين مظهر الصفحة -->
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    
+    .card {
+        border-radius: 15px;
+        background: #fff;
+        padding: 2rem;
+    }
+
+    .otp-input {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 8px;
+        border: 2px solid #007bff;
+        margin: 5px;
+    }
+
+    .btn-primary {
+        background: #007bff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background: #0056b3;
+    }
+</style>
+
 {% endblock %}

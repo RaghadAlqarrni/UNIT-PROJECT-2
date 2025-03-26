@@ -1,102 +1,133 @@
 {% extends 'app_main/base.html' %}
-{% block title %}Home{% endblock %}
+{% block title %}Sign Up{% endblock %}
+{% load static %}
 
 {% block content %}
-<div class="container">
-    <div class="row justify-content-center align-items-center">
-        <div class="col-lg-5 text-center">
-            <img src="/static/img/logo2.png" class="animation-jump img-fluid" alt="Logo">
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg p-4 rounded" style="max-width: 500px; width: 100%;">
+        <div class="text-center">
+            <img src="{% static 'img/logo.png' %}" class="img-fluid mb-3" style="max-width: 120px;" alt="Logo">
+            <h3 class="fw-bold text-primary">Sign Up As Investor</h3>
+            <p class="text-muted">
+                Already have an account? 
+                <a href="{% url 'app_main:login_view' %}" class="fw-bold">Sign In</a>
+            </p>
         </div>
 
-        <div class="col-lg-7 col-sm-12">
-            <div class="form-custom-wrap p-4 border rounded shadow-sm bg-white">
-                <div class="mb-3 text-center">
-                    <h3 class="heading-title">Sign Up As Investor</h3>
-                    <p>Already have an account? <a href="/login" class="fw-bold">Sign In</a></p>
+        <!-- ✅ نموذج التسجيل -->
+        <form method="POST" action="" class="mt-3">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="signupEmail" class="form-label fw-bold">Email</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                    <input name="email" type="email" id="signupEmail" class="form-control" placeholder="example@gmail.com" required>
                 </div>
-
-                <!-- تحسين النموذج بإضافة method و action -->
-                <form name="changePasswordFm" method="POST" action="/signup">
-                    <div class="mb-3">
-                        <label for="signupEmail" class="form-label">Email</label>
-                        <input name="email" type="email" id="signupEmail" class="form-control" placeholder="example@gmail.com" required>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-6 mb-3">
-                            <label for="signupFirstName" class="form-label">First Name</label>
-                            <input name="firstName" type="text" id="signupFirstName" class="form-control" required>
-                        </div>
-                        <div class="col-lg-6 mb-3">
-                            <label for="signupLastName" class="form-label">Last Name</label>
-                            <input name="lastName" type="text" id="signupLastName" class="form-control" required>
-                        </div>
-                    </div>
-
-                    <!-- إدخال رقم الجوال مع اختيار الدولة -->
-                    <div class="mb-3 d-flex align-items-center">
-                        <select id="countrySelect" class="form-select me-2" aria-label="Select country code">
-                            <option value="SA" selected>Saudi Arabia (+966)</option>
-                            <!-- يمكن إضافة المزيد من الدول هنا -->
-                        </select>
-
-                        <div id="flagIcon" class="PhoneInputCountryIcon me-2" style="cursor: pointer;">
-                            <img src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SA.svg" width="24" height="20" alt="SA Flag">
-                        </div>
-
-                        <div class="flex-grow-1">
-                            <label for="phoneInput" class="form-label">Phone Number</label>
-                            <input name="phone" type="tel" id="phoneInput" class="form-control phone-input" required>
-                        </div>
-                    </div>
-
-                    <div class="text-center">
-                        <button id="signupSubmit" type="submit" class="btn btn-primary w-100">Sign Up</button>
-                    </div>
-                    <p>Sign Up As Business Owner? <a href="/signup-business" class="fw-bold">Sign Up Now</a></p>
-                </form>
             </div>
+
+            <div class="row">
+                <div class="col-lg-6 mb-3">
+                    <label for="signupFirstName" class="form-label fw-bold">First Name</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input name="first_name" type="text" id="signupFirstName" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <label for="signupLastName" class="form-label fw-bold">Last Name</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input name="last_name" type="text" id="signupLastName" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="phoneInput" class="form-label fw-bold">Phone Number</label>
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <img id="flagImage" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SA.svg" width="24" height="18" alt="Flag">
+                    </span>
+                    <select id="countrySelect" class="form-select">
+                        <option value="+966" selected>+966 (KSA)</option>
+                        <option value="+1">+1 (USA)</option>
+                        <option value="+971">+971 (UAE)</option>
+                        <option value="+20">+20 (Egypt)</option>
+                    </select>
+                    <input name="phone_number" type="tel" id="phoneInput" class="form-control" placeholder="Enter your phone number" required>
+                </div>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+            </div>
+        </form>
+
+        <div class="text-center mt-3">
+            <p>
+                Sign Up As Business Owner? 
+                <a href="{% url 'app_main:business_signup' %}" class="fw-bold">Sign Up Now</a>
+            </p>
         </div>
     </div>
 </div>
 
+<!-- ✅ تحسين سكريبت الجافاسكريبت -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const flagIcon = document.getElementById('flagIcon');
+        const flagImage = document.getElementById('flagImage');
         const countrySelect = document.getElementById('countrySelect');
         const phoneInput = document.getElementById('phoneInput');
 
-        // عند النقر على العلم، يتم تحديد "السعودية" تلقائيًا
-        flagIcon.addEventListener('click', function () {
-            countrySelect.value = 'SA';
-            updatePhoneInputStyle('SA');
-        });
-
-        // عند تغيير الدولة، يتم تحديث العلم ورمز الدولة
         countrySelect.addEventListener('change', function () {
-            const selectedCountry = countrySelect.value;
-            updatePhoneInputStyle(selectedCountry);
+            const selectedCode = countrySelect.value;
+            const countryCode = selectedCode.replace('+', '');
+
+            flagImage.src = `https://purecatamphetamine.github.io/country-flag-icons/3x2/${countryCode}.svg`;
+            flagImage.alt = countryCode + " Flag";
+
+            if (!phoneInput.value.startsWith(selectedCode)) {
+                phoneInput.value = selectedCode + " ";
+            }
         });
 
-        // دالة لتحديث تصميم حقل الإدخال بناءً على الدولة المحددة
-        function updatePhoneInputStyle(countryCode) {
-            const flagUrl = `https://purecatamphetamine.github.io/country-flag-icons/3x2/${countryCode}.svg`;
-            phoneInput.style.backgroundImage = `url(${flagUrl})`;
-            phoneInput.style.backgroundRepeat = 'no-repeat';
-            phoneInput.style.backgroundPosition = 'left center';
-            phoneInput.style.backgroundSize = '24px 20px';
-            phoneInput.style.paddingLeft = '35px';
-        }
+        phoneInput.addEventListener('input', function () {
+            const selectedCode = countrySelect.value;
+            if (!phoneInput.value.startsWith(selectedCode)) {
+                phoneInput.value = selectedCode + " ";
+            }
+        });
     });
 </script>
 
+<!-- ✅ تحسين مظهر الصفحة -->
 <style>
-    /* إضافة تصميم مخصص لحقل الإدخال */
-    .phone-input {
-        padding-left: 35px;
-        background-repeat: no-repeat;
-        background-position: left center;
-        background-size: 24px 20px;
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .card {
+        border-radius: 15px;
+        background: #fff;
+    }
+
+    .input-group-text {
+        background: #e9ecef;
+        border-right: none;
+    }
+
+    .form-control {
+        border-left: none;
+    }
+
+    .btn-primary {
+        background: #007bff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background: #0056b3;
     }
 </style>
 
