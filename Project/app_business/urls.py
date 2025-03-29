@@ -7,5 +7,6 @@ app_name = "app_business"
 
 urlpatterns = [
     path('business/detail/', views.business_detail_view , name='business_detail_view'),
+    path('business/signup/', views.business_signup_view , name='business_signup_view'),
    
 ]

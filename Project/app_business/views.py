@@ -5,3 +5,8 @@ from django.http import HttpRequest, HttpResponse
 def business_detail_view(request):
     return render(request, 'app_business/business_detail.html')
 
+def business_signup_view(request):
+    return render(request, 'app_business/business_signup.html')
+
+
+
