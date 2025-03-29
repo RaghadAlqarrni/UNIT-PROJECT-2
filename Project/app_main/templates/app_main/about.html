@@ -1,0 +1,43 @@
+{% extends 'app_main/base.html' %}
+{% block title %}About Us{% endblock %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg p-5">
+                <h2 class="text-center text-primary">About Us</h2>
+                <p class="text-center text-muted">Empowering Investors in Saudi Arabia</p>
+
+                <div class="text-center my-4">
+                    <img src="{% static 'img/about-us.jpg' %}" alt="About Us" class="img-fluid rounded">
+                </div>
+
+                <p class="lead text-center">
+                    Our platform is dedicated to helping investors in Saudi Arabia discover new opportunities, 
+                    manage their portfolios, and grow their wealth with confidence.
+                </p>
+
+                <h4 class="mt-4">Our Mission</h4>
+                <p>
+                    We aim to create a transparent and accessible investment environment that empowers individuals 
+                    and institutions to make informed financial decisions.
+                </p>
+
+                <h4 class="mt-4">Why Choose Us?</h4>
+                <ul>
+                    <li>🌍 Trusted by investors across Saudi Arabia</li>
+                    <li>📈 Access to diverse investment opportunities</li>
+                    <li>🔒 Secure and regulated platform</li>
+                    <li>📊 Data-driven insights to guide your investment journey</li>
+                </ul>
+
+                <div class="text-center mt-4">
+                    <a href="{% url 'app_main:contact' %}" class="btn btn-primary">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

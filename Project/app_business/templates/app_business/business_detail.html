@@ -1,0 +1,63 @@
+{% extends 'app_main/base.html' %}
+{% block title %}Submit Your Project{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">Submit Your Investment Project</h2>
+            <div class="card shadow-sm p-4">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Project Name</label>
+                        <input type="text" name="project_name" class="form-control" placeholder="Enter project name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Project Description</label>
+                        <textarea name="description" class="form-control" placeholder="Provide a brief project overview" rows="4" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Business Sector</label>
+                        <select class="form-select" name="sector" required>
+                            <option value="" disabled selected>Select business sector</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Real Estate">Real Estate</option>
+                            <option value="Retail">Retail</option>
+                            <option value="Manufacturing">Manufacturing</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Funding Required (SAR)</label>
+                        <input type="number" name="funding_required" class="form-control" placeholder="Enter funding amount" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Upload Business Plan</label>
+                        <input type="file" name="business_plan" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Upload Project Image</label>
+                        <input type="file" name="project_image" class="form-control">
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="terms" required>
+                        <label class="form-check-label" for="terms">
+                            I confirm that the information provided is accurate.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Submit Project</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

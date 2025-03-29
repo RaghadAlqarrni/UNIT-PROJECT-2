@@ -3,9 +3,10 @@ from django.core.cache import cache
 from django.conf import settings
 from twilio.rest import Client
 from django.shortcuts import render, redirect
+from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import CustomUser
+from .models import *
 from django.core.exceptions import ValidationError
 
 def main_view(request):
@@ -87,6 +88,35 @@ def login_view(request):
 
 def business_signup(request):
     return render(request, "app_main/business_signup.html")
+
+
+
+def contact(request):
+
+     if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+
+       
+        contact_message = ContactMessage(
+            name=name,
+            email=email,
+            subject=subject,
+            message=message
+        )
+        contact_message.save()
+
+        messages.success(request, "Your message has been sent successfully!")
+        return redirect('app_main:contact')  
+     return render(request, 'app_main/contect.html')
+
+def about_view(request):
+    return render(request, 'app_main/about.html')
+
+
+
 
 
 
