@@ -11,6 +11,6 @@ urlpatterns = [
     path("invester/detail/", views.invester_view, name="invester_view"),
     path("login/page/", views.login_view, name="login_view"),
     path('contect/page/', views.contact , name='contact'),
-    path('about/page/', views.about_view , name='about_view'),
-    
+    path('about/page/', views.about_view , name='about_view'),   
+    path("profile/", views.profile_view, name="profile_view"),
 ]

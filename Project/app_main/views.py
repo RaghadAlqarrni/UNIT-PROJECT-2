@@ -116,6 +116,10 @@ def about_view(request):
     return render(request, 'app_main/about.html')
 
 
+def profile_view(request):
+    return render(request, "app_main/profile.html", {"user": request.user})
+
+
 
 
 
