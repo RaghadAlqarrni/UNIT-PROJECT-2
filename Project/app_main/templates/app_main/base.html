@@ -43,7 +43,7 @@
                     <a class="btn btn-primary" href="{% url 'app_main:sign_view' %}">{% trans "Sign In" %}</a>
 
                     <!-- Language Selector -->
-                    <form action="{% url 'set_language' %}" method="post" class="ms-3">
+                    <form action="" method="post" class="ms-3">
                         {% csrf_token %}
                         <input name="next" type="hidden" value="{{ request.path }}">
                         <div class="d-flex align-items-center">

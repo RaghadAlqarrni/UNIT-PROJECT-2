@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_main',
     'app_business',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -81,10 +82,9 @@ WSGI_APPLICATION = 'Project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -127,14 +127,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'app_main.CustomUser'
 
 TWILIO_ACCOUNT_SID = "your_account_sid"
 TWILIO_AUTH_TOKEN = "your_auth_token"
 TWILIO_PHONE_NUMBER = "your_twilio_phone_number"
-
-LOGIN_URL = '/login/page/' 
-
 
 
 

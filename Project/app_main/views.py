@@ -82,42 +82,14 @@ def request_otp(request):
     messages.info(request, "تم إرسال رمز التحقق إلى هاتفك.")
     return redirect(request, "app_main:verify_otp")
 
-def login_view(request):
-    return render(request, "app_main/login.html")
-
-
-def business_signup(request):
-    return render(request, "app_main/business_signup.html")
-
-
 
 def contact(request):
+     return render(request, "app_main/contact.html.html")
 
-     if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        subject = request.POST.get('subject')
-        message = request.POST.get('message')
 
-       
-        contact_message = ContactMessage(
-            name=name,
-            email=email,
-            subject=subject,
-            message=message
-        )
-        contact_message.save()
-
-        messages.success(request, "Your message has been sent successfully!")
-        return redirect('app_main:contact')  
-     return render(request, 'app_main/contect.html')
 
 def about_view(request):
     return render(request, 'app_main/about.html')
-
-
-def profile_view(request):
-    return render(request, "app_main/profile.html", {"user": request.user})
 
 
 
