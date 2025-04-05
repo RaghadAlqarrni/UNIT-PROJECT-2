@@ -10,6 +10,15 @@ from .models import *
 from django.core.exceptions import ValidationError
 
 def main_view(request):
+    
+    if request.user.is_authenticated:
+        print(request.user.email)
+    else:
+        print("User is not logged in")
+
+    #get all games
+    #games = Game.objects.all().order_by("-release_date").annotate(reviews_count=Count("review"))[0:3]
+
     return render(request, 'app_main/index.html')
 
 def invester_view(request):

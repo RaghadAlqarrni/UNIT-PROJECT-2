@@ -46,19 +46,19 @@
                             
                     {% if request.user.is_authenticated %}
                     <div class="d-flex gap-1 align-items-center">
-                        <img src="{{request.user.profile.avatar.url}}" class="rounded-circle avatar" />
-                        <a class="nav-link" href="{% url 'accounts:profile' request.user.username %}">{{ request.user.username }},</a>
-                        <a  class="nav-link" href="{% url 'accounts:logout' %}?next={{request.path}}">Log out</a>
+                        <img src="{% static 'img/profle.jpg' %}" class="rounded-circle avatar" />
+                        <a class="nav-link " href="{% url 'accounts:profile' request.user.username %}" >{{ request.user.username }} </a>
+                        <a  class="nav-link " href="{% url 'accounts:logout' %}?next={{request.path}}">Log out</a>
                     </div>
                     {% else %}
                     <div class="dropdown bg-transparent">
-                        <a class="btn nav-link dropdown-toggle p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="material-symbols-outlined person">person</span>
-                        </a>
-                    <ul class="dropdown-menu p-3">
-                        <li><a class="dropdown-item" href="{% url 'accounts:login' %}?next={{request.path}}">Sign up</a></li>
-                        <li><a class="dropdown-item" href="{% url 'accounts:sign_in' %}?next={{request.path}}">Sign in</a></li>
-                    </ul>
+                            <a class="btn nav-link dropdown-toggle p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="material-symbols-outlined person">person</span>
+                            </a>
+                        <ul class="dropdown-menu p-3">
+                            <li><a class="dropdown-item" href="{% url 'accounts:sign_up' %}?next={{request.path}}">Sign up</a></li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:sign_in' %}?next={{request.path}}">Sign in</a></li>
+                        </ul>
                     </div>
                     {% endif %}
 
