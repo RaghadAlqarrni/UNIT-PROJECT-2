@@ -140,6 +140,7 @@ def sign_out(request):
     logout(request)
     return redirect('app_main:main_view') 
 
+
 def signup_view(request):
     if request.method == "POST":
         user_type = request.POST.get("user_type")
@@ -168,16 +169,15 @@ def signup_view(request):
                         middle_name=request.POST.get("middle_name"),
                         last_name=request.POST.get("last_name"),
                         investment_preferences=request.POST.get("investment_preferences"),
-                        portfolio_size=request.POST.get("portfolio_size"),
+                        portfolio_size=request.POST.get("portfolio_size") or 0.0,
                         income_sources=request.POST.get("income_sources"),
                         employment_status=request.POST.get("employment_status"),
-                        monthly_income=request.POST.get("monthly_income"),
+                        monthly_income=request.POST.get("monthly_income") or 0.0,
                         beneficial_owner=request.POST.get("beneficial_owner") == "on",
                         investor_type=request.POST.get("investor_type"),
                         investment_size=request.POST.get("investment_size"),
                         sector=request.POST.get("sector"),
-                )
-
+                    )
 
                 elif user_type == "business":
                     BusinessProfile.objects.create(
@@ -187,12 +187,12 @@ def signup_view(request):
                         founder_name=request.POST.get("founder_name"),
                         registration_number=request.POST.get("registration_number"),
                         business_location=request.POST.get("business_location"),
-                        start_date=request.POST.get("start_date"),
+                        start_date=request.POST.get("start_date") or None,
                         description=request.POST.get("description"),
                         sector=request.POST.get("sector"),
-                        funding_required=request.POST.get("funding_required"),
-                        equity_offered=request.POST.get("equity_offered"),
-                        expected_roi=request.POST.get("expected_roi"),
+                        funding_required=request.POST.get("funding_required") or 0.0,
+                        equity_offered=request.POST.get("equity_offered") or 0.0,
+                        expected_roi=request.POST.get("expected_roi") or 0.0,
                         revenue_model=request.POST.get("revenue_model"),
                         projected_revenue=request.POST.get("projected_revenue"),
                         business_plan=request.FILES.get("business_plan"),

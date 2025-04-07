@@ -28,7 +28,7 @@ class InvestorProfile(models.Model):
 
 class BusinessProfile(models.Model):
     SECTOR_CHOICES = [
-        ('Technology', 'Technology'),
+        ('Tec', 'Tech'),
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -45,10 +45,10 @@ class BusinessProfile(models.Model):
     expected_roi = models.FloatField(default=0.0)
     revenue_model = models.CharField(max_length=255, default="Not specified")
     projected_revenue = models.TextField(default="Not specified")
-    business_plan = models.FileField(upload_to='business_plans/', default="N/A")
-    project_image = models.ImageField(upload_to='project_images/', default="default.jpg")
-    registration_document = models.FileField(upload_to='registration_documents/', default="N/A")
-    pitch_deck = models.FileField(upload_to='pitch_decks/', default="N/A")
+    business_plan = models.FileField(upload_to='media/business_plans/', default="N/A")
+    project_image = models.ImageField(upload_to='media/project_images/', default="default.jpg")
+    registration_document = models.FileField(upload_to='media/registration_documents/', default="N/A")
+    pitch_deck = models.FileField(upload_to='media/registration_documents/', default="N/A")
 
     def __str__(self):
         return self.project_name

@@ -16,6 +16,7 @@
             </select>
         </div>
 
+        <!-- Common User Info -->
         <div class="form-group">
             <label for="username">Username:</label>
             <input type="text" class="form-control" name="username" id="username" required>
@@ -74,39 +75,7 @@
                 <label for="income_sources">Income Sources:</label>
                 <input type="text" class="form-control" name="income_sources" id="income_sources">
             </div>
-            <div class="form-group">
-              <label for="investor_type">Investor Type:</label>
-              <input type="text" class="form-control" name="investor_type" id="investor_type" required>
-          </div>
-          
-          <div class="form-group">
-              <label for="investment_size">Investment Size:</label>
-              <select class="form-control" name="investment_size" id="investment_size" required>
-                  <option value="Small">Small</option>
-                  <option value="Medium">Medium</option>
-                  <option value="Large">Large</option>
-              </select>
-          </div>
-          
-          <div class="form-group">
-              <label for="sector">Sector of Interest:</label>
-              <select class="form-control" name="sector" id="sector" required>
-                  <option value="Technology">Technology</option>
-                  <option value="Healthcare">Healthcare</option>
-                  <option value="Finance">Finance</option>
-                  <option value="Retail">Retail</option>
-                  <option value="Real Estate">Real Estate</option>
-                  <option value="Energy">Energy</option>
-                  <option value="Entertainment">Entertainment</option>
-                  <option value="Other">Other</option>
-              </select>
-          </div>
-          
-          <div class="form-group form-check">
-              <input type="checkbox" class="form-check-input" name="beneficial_owner" id="beneficial_owner">
-              <label class="form-check-label" for="beneficial_owner">I am the beneficial owner</label>
-          </div>
-          
+
             <div class="form-group">
                 <label for="employment_status">Employment Status:</label>
                 <input type="text" class="form-control" name="employment_status" id="employment_status">
@@ -116,109 +85,142 @@
                 <label for="monthly_income">Monthly Income:</label>
                 <input type="number" class="form-control" name="monthly_income" id="monthly_income" step="0.01">
             </div>
-        </div>
-
-        <!-- Business Fields -->
-        <div id="business_fields" class="additional_fields" style="display:none;">
-            <h5 class="mt-4">Business Owner Information</h5>
 
             <div class="form-group">
-                <label for="project_name">Project Name:</label>
-                <input type="text" class="form-control" name="project_name" id="project_name">
+                <label for="investor_type">Investor Type:</label>
+                <input type="text" class="form-control" name="investor_type" id="investor_type" required>
             </div>
 
             <div class="form-group">
-                <label for="company_name">Company Name:</label>
-                <input type="text" class="form-control" name="company_name" id="company_name">
-            </div>
-
-            <div class="form-group">
-                <label for="founder_name">Founder Name:</label>
-                <input type="text" class="form-control" name="founder_name" id="founder_name">
-            </div>
-
-            <div class="form-group">
-                <label for="registration_number">Registration Number:</label>
-                <input type="text" class="form-control" name="registration_number" id="registration_number">
-            </div>
-
-            <div class="form-group">
-                <label for="business_location">Business Location:</label>
-                <input type="text" class="form-control" name="business_location" id="business_location">
-            </div>
-
-            <div class="form-group">
-                <label for="start_date">Start Date:</label>
-                <input type="date" class="form-control" name="start_date" id="start_date">
-            </div>
-
-            <div class="form-group">
-                <label for="description">Company Description:</label>
-                <textarea class="form-control" name="description" id="description"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="sector">Sector:</label>
-                <select class="form-control" name="sector" id="sector">
-                    <option value="Tech">Tech</option>
-                    <option value="Health">Health</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Education">Education</option>
-                    <option value="Other">Other</option>
+                <label for="investment_size">Investment Size:</label>
+                <select class="form-control" name="investment_size" id="investment_size" required>
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="funding_required">Funding Required:</label>
-                <input type="number" step="0.01" class="form-control" name="funding_required" id="funding_required">
+                <label for="sector">Sector of Interest:</label>
+                <select class="form-control" name="sector" id="sector" required>
+                    <option value="Technology">Technology</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Retail">Retail</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Energy">Energy</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Other">Other</option>
+                </select>
             </div>
 
-            <div class="form-group">
-                <label for="equity_offered">Equity Offered (%):</label>
-                <input type="number" step="0.01" class="form-control" name="equity_offered" id="equity_offered">
-            </div>
-
-            <div class="form-group">
-                <label for="expected_roi">Expected ROI (%):</label>
-                <input type="number" step="0.01" class="form-control" name="expected_roi" id="expected_roi">
-            </div>
-
-            <div class="form-group">
-                <label for="revenue_model">Revenue Model:</label>
-                <input type="text" class="form-control" name="revenue_model" id="revenue_model">
-            </div>
-
-            <div class="form-group">
-                <label for="projected_revenue">Projected Revenue:</label>
-                <textarea class="form-control" name="projected_revenue" id="projected_revenue"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="business_plan">Business Plan (PDF):</label>
-                <input type="file" class="form-control" name="business_plan" id="business_plan">
-            </div>
-
-            <div class="form-group">
-                <label for="project_image">Project Image:</label>
-                <input type="file" class="form-control" name="project_image" id="project_image">
-            </div>
-
-            <div class="form-group">
-                <label for="registration_document">Registration Document:</label>
-                <input type="file" class="form-control" name="registration_document" id="registration_document">
-            </div>
-
-            <div class="form-group">
-                <label for="pitch_deck">Pitch Deck:</label>
-                <input type="file" class="form-control" name="pitch_deck" id="pitch_deck">
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" name="beneficial_owner" id="beneficial_owner">
+                <label class="form-check-label" for="beneficial_owner">I am the beneficial owner of this account</label>
             </div>
         </div>
 
-        <!-- زر التسليم الموحد -->
-        <div class="form-group mt-4">
-            <button type="submit" class="btn btn-primary btn-block">تسجيل</button>
-        </div>
+        <div>
 
+            <div id="business_fields" class="additional_fields" style="display:none;">
+                <h5 class="mt-4">Business Owner Information</h5>
+
+                <div class="form-group">
+                    <label for="project_name">Project Name:</label>
+                    <input type="text" class="form-control" name="project_name" id="project_name">
+                </div>
+
+                <div class="form-group">
+                    <label for="company_name">Company Name:</label>
+                    <input type="text" class="form-control" name="company_name" id="company_name">
+                </div>
+
+                <div class="form-group">
+                    <label for="founder_name">Founder Name:</label>
+                    <input type="text" class="form-control" name="founder_name" id="founder_name">
+                </div>
+
+                <div class="form-group">
+                    <label for="registration_number">Registration Number:</label>
+                    <input type="text" class="form-control" name="registration_number" id="registration_number">
+                </div>
+
+                <div class="form-group">
+                    <label for="business_location">Business Location:</label>
+                    <input type="text" class="form-control" name="business_location" id="business_location">
+                </div>
+
+                <div class="form-group">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" class="form-control" name="start_date" id="start_date">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Company Description:</label>
+                    <textarea class="form-control" name="description" id="description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="sector">Sector:</label>
+                    <select class="form-control" name="sector" id="sector">
+                        <option value="Tech">Tech</option>
+                        <option value="Health">Health</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Education">Education</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="funding_required">Funding Required:</label>
+                    <input type="number" step="0.01" class="form-control" name="funding_required" id="funding_required">
+                </div>
+
+                <div class="form-group">
+                    <label for="equity_offered">Equity Offered (%):</label>
+                    <input type="number" step="0.01" class="form-control" name="equity_offered" id="equity_offered">
+                </div>
+
+                <div class="form-group">
+                    <label for="expected_roi">Expected ROI (%):</label>
+                    <input type="number" step="0.01" class="form-control" name="expected_roi" id="expected_roi">
+                </div>
+
+                <div class="form-group">
+                    <label for="revenue_model">Revenue Model:</label>
+                    <input type="text" class="form-control" name="revenue_model" id="revenue_model">
+                </div>
+
+                <div class="form-group">
+                    <label for="projected_revenue">Projected Revenue:</label>
+                    <textarea class="form-control" name="projected_revenue" id="projected_revenue"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="business_plan">Business Plan (PDF):</label>
+                    <input type="file" class="form-control" name="business_plan" id="business_plan">
+                </div>
+
+                <div class="form-group">
+                    <label for="project_image">Project Image:</label>
+                    <input type="file" class="form-control" name="project_image" id="project_image">
+                </div>
+
+                <div class="form-group">
+                    <label for="registration_document">Registration Document:</label>
+                    <input type="file" class="form-control" name="registration_document" id="registration_document">
+                </div>
+
+                <div class="form-group">
+                    <label for="pitch_deck">Pitch Deck:</label>
+                    <input type="file" class="form-control" name="pitch_deck" id="pitch_deck">
+                </div>
+            </div>
+
+            <div class="form-group mt-4">
+                <button type="submit" class="btn btn-primary btn-block">تسجيل</button>
+            </div>
+        </div>
     </form>
 </div>
 
@@ -240,7 +242,7 @@
         }
 
         userType.addEventListener('change', toggleFields);
-        toggleFields(); // call on load
+        toggleFields(); 
     });
 </script>
 {% endblock %}

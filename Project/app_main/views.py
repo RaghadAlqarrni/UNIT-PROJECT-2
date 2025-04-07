@@ -33,6 +33,9 @@ def contact(request):
 def about_view(request):
     return render(request, 'app_main/about.html')
 
+def wallet_view(request):
+    return render(request, 'app_main/wallet.html')
+
 
 
 

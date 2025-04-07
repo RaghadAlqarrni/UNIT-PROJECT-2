@@ -1,0 +1,86 @@
+{% extends 'app_main/base.html' %}
+
+{% block title %}Wallet{% endblock %}
+{% load static %}
+{% block content %}
+
+<section>
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="wd">
+                    <h1 class="p-4">Wallet Details</h1>
+                    <div class="wdd">
+                        <div class="wallet-info">
+                            <h3>Wallet Owner:</h3>
+                            <h4>raghad</h4>
+                        </div>
+                        <div class="wallet-info">
+                            <h3>Wallet Token:</h3>
+                            <h4>7787</h4>
+                        </div>
+                        <div class="wallet-info">
+                            <h3>Wallet Balance:</h3>
+                            <h4>00.0$</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="wallet-image">
+                    <img src="{% static 'img/Creditcard.png' %}" alt="Mobile Payment" class="img-fluid">
+                    <div class="button">
+                        <a href="#signup" class="btn">Diposit</a>
+                        <a href="#signup" class="btn">Withsrawal</a>
+                    </div>
+                    
+                </div>
+                    
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .wd {
+        padding-left: 4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .wdd {
+        padding-left: 4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .wallet-info {
+        display: flex;
+        align-items: center;
+        gap: 2rem; 
+    }
+
+    .wallet-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 6rem;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .button{
+        display: flex;
+        flex-direction:row;
+        gap: 1rem;   
+    }
+
+    .wallet-image img {
+        max-width: 100%; 
+        height: auto; 
+    }
+</style>
+
+{% endblock %}
