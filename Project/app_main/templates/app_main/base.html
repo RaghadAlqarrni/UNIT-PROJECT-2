@@ -43,8 +43,8 @@
 
                    
                     <div class="d-flex gap-2">
-                        <a class="btn log" href="{% url 'accounts:sign_in' %}" > log in {% trans "" %}</a> 
-                        <a class="btn sign" href="{% url 'accounts:sign_up' %}"> Sign up {% trans "" %}</a> 
+                        <a class=" log" href="{% url 'accounts:sign_in' %}" > log in {% trans "" %}</a> 
+                        <a class=" sign" href="{% url 'accounts:sign_up' %}"> Sign up {% trans "" %}</a> 
                     </div>
 
 
@@ -70,7 +70,7 @@
                             </a>
                         <ul class="dropdown-menu p-3">
                             <li><a class="dropdown-item" href="{% url 'accounts:sign_up' %}?next={{request.path}}">Sign up</a></li>
-                            <li><a class="dropdown-item" href="{% url 'accounts:sign_in' %}?next={{request.path}}">Sign in</a></li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:sign_in' %}?next={{request.path}}">log in</a></li>
                         </ul>
                     </div>
                     {% endif %}
@@ -97,7 +97,7 @@
         </main>
 
         
-        <footer class="bg-light text-center py-1 mt-1">
+        <footer class="bg-light text-center py-1 mt-1 ">
             <hr class="my-3">
             <div class="container">
                 <img src="{% static 'img/logo.svg' %}" alt="Site Logo" class="primary-site-logo" width="10%">

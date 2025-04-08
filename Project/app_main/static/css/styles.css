@@ -3,11 +3,16 @@
     padding: 0%;
 }
 .btn {
-    background-color: #F5CA41;
-    color: #000;
-    border-radius: 40px; 
+    background-color: #F5CA41; /* اللون الأساسي */
+    color: #000;               /* لون النص */
+    border-radius: 40px;      /* حواف دائرية */
+    transition: background-color 0.5s ease, color 0.5s ease; /* تأثير الانتقال */
 }
 
+.btn:hover {
+    background-color: #D4A632; /* تغيير اللون عند المرور */
+    color: #FFFFFF;            /* تغيير لون النص عند المرور */
+}
 body{
     color: white;
     background-color: #006c48;
@@ -97,22 +102,43 @@ body{
     border-radius: 50%;   
 }
 
-.log{
-    color: white;
-    background-color: #006c48;
-    margin-top: 3px;
-    padding: 5px 30px;
-    box-shadow:  0 5px 0 0 rgba(0, 0, 0, 0.2);
+.log {
+    color: white; 
+    background-color: #006c48; 
+    margin-top: 3px; 
+    padding: 5px 28px; 
+    box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.2); 
+    border-radius: 40px; 
+    transition: background-color 0.5s ease, color 0.5s ease; 
+    text-decoration: none; 
+    border:2px solid rgba(0, 0, 0, 0.4); 
 }
 
-.sign{
+.sign {
     margin-top: 3px;
     padding: 5px 20px;
     background-color: #ffffff;
-    color: #000;
-    border-color:rgba(0, 0, 0, 0.4);
+    color: #000;              
+    border: 2px solid rgba(0, 0, 0, 0.4); 
+    border-radius: 40px;      
+    transition: background-color 0.5s ease, color 0.5s ease; 
+    box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.2);
+    text-decoration: none;     
 }
 
+.log:hover {
+    background-color: #005640; 
+    color: #ffffff; 
+    box-shadow: 0 8px 0 0 rgba(0, 0, 0, 0.3); 
+    transform: translateY(-2px); 
+}
+
+.sign:hover {
+    background-color: #f0f0f0; 
+    color: #000; 
+    border-color: rgba(0, 0, 0, 0.6);
+    transform: translateY(-2px);
+}
 .nav-item {
     display: flex;
     align-items: center;
@@ -125,13 +151,12 @@ body{
 
 .nav-link {
     color: black;         
-
 }
 
 .nav-link:hover {
     text-decoration-line: underline;
-    text-decoration-color: #006c48; 
+    text-decoration-color: #006c48;
     text-decoration-thickness: 3px;
-    
-    
+    text-underline-offset: 5px;
+    color: #005640;
 }
