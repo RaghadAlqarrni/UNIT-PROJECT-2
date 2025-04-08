@@ -3,22 +3,23 @@
     padding: 0%;
 }
 .btn {
-    background-color: #F5CA41; /* اللون الأساسي */
-    color: #000;               /* لون النص */
-    border-radius: 40px;      /* حواف دائرية */
+    background-color: #F5CA41; 
+    color: #000;               
+    border-radius: 40px;      
     transition: background-color 0.5s ease, color 0.5s ease; /* تأثير الانتقال */
 }
 
 .btn:hover {
-    background-color: #D4A632; /* تغيير اللون عند المرور */
-    color: #FFFFFF;            /* تغيير لون النص عند المرور */
+    background-color: #D4A632; 
+    color: #FFFFFF;           
 }
 body{
     color: white;
     background-color: #006c48;
+    background-image: url('/static/img/Ellipse.svg');
+    background-repeat: no-repeat;
   
 }
-
 
 .signup-container {
     display: flex;
@@ -69,16 +70,26 @@ body{
     padding-top: 3rem;
    
 }
-.img-div{
+.img-div {
     width: 40%;
     height: 30%;
     background-repeat: no-repeat;
-    padding-left: 50%;
+    padding-left: 60%;
     z-index: -1;
     position: absolute;
-    margin-top: 1rem;
-
+    padding-top: 6rem;
+    
 }
+.imgg-div{
+    width: 40%;
+    height: 30%;
+    background-repeat: no-repeat;
+    padding-right: 50%;
+    z-index: -1;
+    position: absolute;
+    padding-top: 6rem;
+}
+
 .text{
     width: 100%;
     padding-top: 5rem;
@@ -92,7 +103,12 @@ body{
 }
 
 .main-div{
-   
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+html, body {
+    height: 100%;
 }
 .img-div img{
    padding-bottom: 10rem;
@@ -101,12 +117,14 @@ body{
 .person{
     border-radius: 50%;   
 }
-
+main {
+    flex: 1; 
+}
 .log {
     color: white; 
     background-color: #006c48; 
     margin-top: 3px; 
-    padding: 5px 28px; 
+    padding: 5px 25px; 
     box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.2); 
     border-radius: 40px; 
     transition: background-color 0.5s ease, color 0.5s ease; 
@@ -159,4 +177,25 @@ body{
     text-decoration-thickness: 3px;
     text-underline-offset: 5px;
     color: #005640;
+}
+
+.language-form {
+    margin-left: 1rem; 
+}
+
+.language-icon {
+    margin-right: 0.5rem; 
+    width: 20px;
+}
+
+.form-select {
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 5px; 
+    transition: border-color 0.3s ease; 
+}
+
+.form-select:focus {
+    border-color: #006c48; 
+    outline: none; 
 }

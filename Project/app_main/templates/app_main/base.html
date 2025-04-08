@@ -57,8 +57,10 @@
                                 {{ request.user.username }}
                             </a>
                             <ul class="dropdown-menu p-3">
-                                <li><a class="dropdown-item" href="{% url 'accounts:profile' request.user.username %}">{% trans "Profile" %}</a></li>
-                                <li><a class="dropdown-item" href="{% url 'accounts:logout' %}?next={{ request.path }}">{% trans "Log out" %}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'accounts:profile' request.user.username %}">Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'app_main:wallet_view' %}">Your wallet</a></li>
+                                <li><a class="dropdown-item" href="{% url 'accounts:logout' %}?next={{ request.path }}">Log out</a></li>
+
                             </ul>
                         </div>
                     </div>
@@ -76,12 +78,12 @@
                     {% endif %}
 
                     
-                    <form action="" method="post" class="ms-3">
+                    <form action="" method="post" class="language-form">
                         {% csrf_token %}
                         <input name="next" type="hidden" value="{{ request.path }}">
                         <div class="d-flex align-items-center">
-                            <img src="{% static 'img/earth.svg' %}" alt="Language" class="me-2" width="20">
-                            <select name="language" class="form-select form-select-sm" onchange="this.form.submit();">
+                            <img src="{% static 'img/earth.svg' %}" alt="Language" class="language-icon">
+                            <select name="language" class="form-select" onchange="this.form.submit();">
                                 <option value="en" {% if request.LANGUAGE_CODE == 'en' %}selected{% endif %}>English</option>
                                 <option value="ar" {% if request.LANGUAGE_CODE == 'ar' %}selected{% endif %}>العربية</option>
                             </select>
