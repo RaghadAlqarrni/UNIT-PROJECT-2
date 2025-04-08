@@ -1,0 +1,181 @@
+{% extends 'app_main/base.html' %}
+{% block title %}deposit{% endblock %}
+{% load static %}
+{% block content %}
+
+<main>
+    <section>
+        <div class="container p-4">
+            <div class="row align-items-center"> 
+                <div class="col-md-8">
+                    <div class="wd">
+                        <h1 class="p-4">Your adding money to your <br> wallet</h1>
+                        <div class="button">
+                            <button class="btn" onclick="openPopup()">Credit/Debit Card Payment</button>
+                        </div>   
+                    </div>
+                </div>
+                <div class="col-md-4"> 
+                    <div class="pt-2 mobile-image">
+                        <img src="{% static 'img/Mobile-Payment.png' %}" alt="Mobile Payment" class="img-fluid">                 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="payment-popup" class="popup">
+        <div class="popup-content text-dark">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Credit/Debit Card Payment</h2>
+            <form id="payment-form" method="POST" action="{% url 'wallet:wallet_view' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" name="card-number" class="form-control" placeholder="1234 5678 9012 3456" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-name">Name on Card</label>
+                    <input type="text" id="card-name" name="card-name" class="form-control" placeholder="raghad alqarni" required>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="expiry-date">Expiry Date</label>
+                            <input type="text" id="expiry-date" name="expiry-date" class="form-control" placeholder="MM/YY" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" name="cvv" class="form-control" placeholder="123" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <input type="number" id="amount" name="amount" class="form-control" placeholder="100" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Pay Now</button>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        .wd {
+            display: flex;
+            flex-direction: column;
+            padding-top: 3rem;
+            gap: 1rem;
+        }
+
+        .button {
+            display: flex;
+            padding-left: 2rem;
+        }
+
+        .btn {
+            border-radius: 40px; 
+            background-color: transparent; 
+            color: white; 
+            border: 2px solid #F5CA41; 
+            padding: 10px 20px; 
+            transition: background-color 0.3s, color 0.3s; 
+        }
+
+        .btn:hover {
+            background-color: #F5CA41; 
+            color: #006c48; 
+        }
+
+        .mobile-image img {
+            max-width: 100%;
+            padding-top: 4rem;
+            height: auto; 
+        }
+
+        @media (max-width: 768px) {
+            .mobile-image {
+                display: flex;
+                justify-content: center;
+                padding-left: 0; 
+            }
+        }
+
+        .popup {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.4); 
+        }
+
+        .popup-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 600px; 
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            background-color: #F5CA41;
+            color: #006c48;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+
+    <script>
+        function openPopup() {
+            document.getElementById("payment-popup").style.display = "block"; 
+        }
+
+        function closePopup() {
+            document.getElementById("payment-popup").style.display = "none"; 
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("payment-popup")) {
+                closePopup(); 
+            }
+        }
+    </script>
+
+</main>
+
+{% endblock %}

@@ -58,7 +58,7 @@
                             </a>
                             <ul class="dropdown-menu p-3">
                                 <li><a class="dropdown-item" href="{% url 'accounts:profile' request.user.username %}">Profile</a></li>
-                                <li><a class="dropdown-item" href="{% url 'app_main:wallet_view' %}">Your wallet</a></li>
+                                <li><a class="dropdown-item" href="{% url 'wallet:wallet_view' %}">Your wallet</a></li>
                                 <li><a class="dropdown-item" href="{% url 'accounts:logout' %}?next={{ request.path }}">Log out</a></li>
 
                             </ul>

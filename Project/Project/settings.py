@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'app_main',
     'app_business',
     'accounts',
+    'wallet',
 ]
 
 MIDDLEWARE = [
@@ -159,5 +160,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 AUTH_USER_MODEL = 'auth.User'
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
