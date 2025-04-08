@@ -5,15 +5,13 @@
 .btn {
     background-color: #F5CA41;
     color: #000;
+    border-radius: 40px; 
 }
 
-
-
-
 body{
-
     color: white;
     background-color: #006c48;
+  
 }
 
 
@@ -67,14 +65,73 @@ body{
    
 }
 .img-div{
-    background-image: url('/static/img/bg.png');
+    width: 40%;
+    height: 30%;
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    
+    padding-left: 50%;
+    z-index: -1;
+    position: absolute;
+    margin-top: 1rem;
+
+}
+.text{
+    width: 100%;
+    padding-top: 5rem;
+    position: relative;
+}
+.text h2{
+    font-size: 3rem;
+}
+.text p{
+    font-size: 1rem;
+}
+
+.main-div{
+   
+}
+.img-div img{
+   padding-bottom: 10rem;
 }
 
 .person{
-
     border-radius: 50%;   
+}
+
+.log{
+    color: white;
+    background-color: #006c48;
+    margin-top: 3px;
+    padding: 5px 30px;
+    box-shadow:  0 5px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.sign{
+    margin-top: 3px;
+    padding: 5px 20px;
+    background-color: #ffffff;
+    color: #000;
+    border-color:rgba(0, 0, 0, 0.4);
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+}
+
+.divider {
+    color: gray;     
+    margin: 0 3px;  
+}
+
+.nav-link {
+    color: black;         
+
+}
+
+.nav-link:hover {
+    text-decoration-line: underline;
+    text-decoration-color: #006c48; 
+    text-decoration-thickness: 3px;
+    
+    
 }

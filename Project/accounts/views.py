@@ -5,11 +5,13 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import InvestorSignUpForm, BusinessSignUpForm
 from .models import *
+from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.db import transaction
+from datetime import datetime
 
 def investor_signup(request):
     if request.method == 'POST':
@@ -140,72 +142,100 @@ def sign_out(request):
     logout(request)
     return redirect('app_main:main_view') 
 
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from django.contrib import messages
+from django.contrib.auth.models import User
+from .models import InvestorProfile, BusinessProfile
+from datetime import datetime
 
 def signup_view(request):
-    if request.method == "POST":
-        user_type = request.POST.get("user_type")
-        username = request.POST.get("username")
-        email = request.POST.get("email")
-        password1 = request.POST.get("password1")
-        password2 = request.POST.get("password2")
+    if request.method == 'POST':
+        user_type = request.POST.get('user_type')
+        username = request.POST.get('username', '').strip()
+        email = request.POST.get('email')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        if not username:
+            messages.error(request, "Username is required.")
+            return redirect('accounts:sign_up')
+
+        if not all([email, password1, password2]):
+            messages.error(request, "All fields are required.")
+            return redirect('accounts:sign_up')
 
         if password1 != password2:
             messages.error(request, "Passwords do not match.")
-            return redirect("accounts:sign_up")
+            return redirect('accounts:sign_up')
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists.")
+            return redirect('accounts:sign_up')
 
         try:
-            with transaction.atomic():
-                user = User.objects.create_user(
-                    username=username,
-                    email=email,
-                    password=password1
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password1
+            )
+
+            if user_type == 'investor':
+                InvestorProfile.objects.create(
+                    user=user,
+                    id_number=request.POST.get('id_number', '000000'),
+                    first_name=request.POST.get('first_name', ''),
+                    middle_name=request.POST.get('middle_name', ''),
+                    last_name=request.POST.get('last_name', ''),
+                    investment_preferences=request.POST.get('investment_preferences', ''),
+                    portfolio_size=float(request.POST.get('portfolio_size', 0)),
+                    income_sources=request.POST.get('income_sources', ''),
+                    employment_status=request.POST.get('employment_status', ''),
+                    monthly_income=float(request.POST.get('monthly_income', 0)),
+                    beneficial_owner=bool(request.POST.get('beneficial_owner')),
+                    investor_type=request.POST.get('investor_type', 'Individual'),
+                    investment_size=request.POST.get('investment_size', 'Small'),
+                    sector=request.POST.get('sector', 'Other')
                 )
 
-                if user_type == "investor":
-                    InvestorProfile.objects.create(
-                        user=user,
-                        id_number=request.POST.get("id_number"),
-                        first_name=request.POST.get("first_name"),
-                        middle_name=request.POST.get("middle_name"),
-                        last_name=request.POST.get("last_name"),
-                        investment_preferences=request.POST.get("investment_preferences"),
-                        portfolio_size=request.POST.get("portfolio_size") or 0.0,
-                        income_sources=request.POST.get("income_sources"),
-                        employment_status=request.POST.get("employment_status"),
-                        monthly_income=request.POST.get("monthly_income") or 0.0,
-                        beneficial_owner=request.POST.get("beneficial_owner") == "on",
-                        investor_type=request.POST.get("investor_type"),
-                        investment_size=request.POST.get("investment_size"),
-                        sector=request.POST.get("sector"),
-                    )
+            elif user_type == 'business':
+                files = {
+                    'business_plan': request.FILES.get('business_plan'),
+                    'project_image': request.FILES.get('project_image'),
+                    'registration_document': request.FILES.get('registration_document'),
+                    'pitch_deck': request.FILES.get('pitch_deck')
+                }
 
-                elif user_type == "business":
-                    BusinessProfile.objects.create(
-                        user=user,
-                        project_name=request.POST.get("project_name"),
-                        company_name=request.POST.get("company_name"),
-                        founder_name=request.POST.get("founder_name"),
-                        registration_number=request.POST.get("registration_number"),
-                        business_location=request.POST.get("business_location"),
-                        start_date=request.POST.get("start_date") or None,
-                        description=request.POST.get("description"),
-                        sector=request.POST.get("sector"),
-                        funding_required=request.POST.get("funding_required") or 0.0,
-                        equity_offered=request.POST.get("equity_offered") or 0.0,
-                        expected_roi=request.POST.get("expected_roi") or 0.0,
-                        revenue_model=request.POST.get("revenue_model"),
-                        projected_revenue=request.POST.get("projected_revenue"),
-                        business_plan=request.FILES.get("business_plan"),
-                        project_image=request.FILES.get("project_image"),
-                        registration_document=request.FILES.get("registration_document"),
-                        pitch_deck=request.FILES.get("pitch_deck"),
-                    )
+                numeric_fields = {
+                    'funding_required': float(request.POST.get('funding_required', 0)),
+                    'equity_offered': float(request.POST.get('equity_offered', 0)),
+                    'expected_roi': float(request.POST.get('expected_roi', 0))
+                }
 
-                messages.success(request, "Account created successfully! You can now sign in.")
-                return redirect("accounts:sign_in")
+                BusinessProfile.objects.create(
+                    user=user,
+                    project_name=request.POST.get('project_name', ''),
+                    company_name=request.POST.get('company_name', ''),
+                    founder_name=request.POST.get('founder_name', ''),
+                    registration_number=request.POST.get('registration_number', ''),
+                    business_location=request.POST.get('business_location', ''),
+                    start_date=request.POST.get('start_date') or None,
+                    description=request.POST.get('description', ''),
+                    sector=request.POST.get('sector_business', 'Other'),
+                    **numeric_fields,
+                    revenue_model=request.POST.get('revenue_model', ''),
+                    projected_revenue=request.POST.get('projected_revenue', ''),
+                    **files
+                )
+
+            login(request, user)
+            messages.success(request, "Account created successfully!")
+            return redirect('app_main:main_view')
 
         except Exception as e:
-            messages.error(request, f"Something went wrong: {e}")
-            return redirect("accounts:sign_up")
+            messages.error(request, f"Registration error: {str(e)}")
+            if 'user' in locals():
+                user.delete()
+            return redirect('accounts:sign_up')
 
-    return render(request, "accounts/signup.html")
+    return render(request, 'accounts/signup.html')

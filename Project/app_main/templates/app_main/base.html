@@ -20,7 +20,7 @@
             <div class="container">
                 
                 <a class="navbar-brand" href="{% url 'app_main:main_view' %}">
-                    <img src="{% static 'img/logo.svg' %}" alt="Site Logo" class="primary-site-logo">
+                    <img src="{% static 'img/logo.svg' %}" alt="Site Logo" class="primary-site-logo" width="50%">
                 </a>
 
                 
@@ -28,30 +28,43 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="collapse navbar-collapse gap-2" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'app_main:main_view' %}">{% trans "Home" %}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">{% trans "Investment Opportunity" %}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'app_main:contact' %}">{% trans "Contact Us" %}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'app_main:about_view' %}">{% trans "About Us" %}</a></li>
+                        <li class="nav-item"><span class="divider">|</span></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'app_main:main_view' %}">Home</a></li>
+                        <li class="nav-item"><span class="divider">|</span></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Investment opportunities</a></li>
+                        <li class="nav-item"><span class="divider">|</span></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'app_main:contact' %}">contact us</a></li>
+                        <li class="nav-item"><span class="divider">|</span></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'app_main:about_view' %}">about us</a></li>
+                        <li class="nav-item"><span class="divider">|</span></li>
                     </ul>
 
                    
                     <div class="d-flex gap-2">
-                        <a class="btn " href="{% url 'accounts:investor_sign_up' %}">{% trans "Register as Investor" %}</a>
-                        <a class="btn " href="{% url 'accounts:business_sign_up' %}">{% trans "Register as Business Owner" %}</a>
+                        <a class="btn log" href="{% url 'accounts:sign_in' %}" > log in {% trans "" %}</a> 
+                        <a class="btn sign" href="{% url 'accounts:sign_up' %}"> Sign up {% trans "" %}</a> 
                     </div>
 
 
                             
                     {% if request.user.is_authenticated %}
-                    <div class="d-flex gap-1 align-items-center">
-                        <img src="{% static 'img/profle.jpg' %}" class="rounded-circle avatar" />
-                        <a class="nav-link " href="{% url 'accounts:profile' request.user.username %}" >{{ request.user.username }} </a>
-                        <a  class="nav-link " href="{% url 'accounts:logout' %}?next={{request.path}}">Log out</a>
+                    <div class="d-flex gap-1 align-items-center text-dark">
+                        <img src="{% static 'img/profle.png' %}" class="rounded-circle avatar" width="40" />
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ request.user.username }}
+                            </a>
+                            <ul class="dropdown-menu p-3">
+                                <li><a class="dropdown-item" href="{% url 'accounts:profile' request.user.username %}">{% trans "Profile" %}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'accounts:logout' %}?next={{ request.path }}">{% trans "Log out" %}</a></li>
+                            </ul>
+                        </div>
                     </div>
+
                     {% else %}
-                    <div class="dropdown bg-transparent">
+                    <div class="dropdown bg-transparent ">
                             <a class="btn nav-link dropdown-toggle p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="material-symbols-outlined person">person</span>
                             </a>
@@ -84,10 +97,10 @@
         </main>
 
         
-        <footer class="bg-light text-center py-4 mt-4">
+        <footer class="bg-light text-center py-1 mt-1">
             <hr class="my-3">
             <div class="container">
-                <img src="{% static 'img/logo.svg' %}" alt="Site Logo" class="primary-site-logo">
+                <img src="{% static 'img/logo.svg' %}" alt="Site Logo" class="primary-site-logo" width="10%">
                 <div class="mb-2">
                     <a href="https://facebook.com" class="text-dark me-2"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://linkedin.com" class="text-dark me-2"><i class="fab fa-linkedin-in"></i></a>

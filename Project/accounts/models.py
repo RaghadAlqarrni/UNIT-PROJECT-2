@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -5,6 +6,12 @@ from django.utils import timezone
 class InvestorProfile(models.Model):
     SECTOR_CHOICES = [
         ('Technology', 'Technology'),
+        ('Healthcare', 'Healthcare'),
+        ('Finance', 'Finance'),
+        ('Real Estate', 'Real Estate'),
+        ('Education', 'Education'),
+        ('Energy', 'Energy'),
+        ('Other', 'Other'),
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -23,12 +30,18 @@ class InvestorProfile(models.Model):
     sector = models.CharField(max_length=20, choices=SECTOR_CHOICES, default='Other')
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
-    
+        return f"{self.user.username} - {self.first_name} {self.last_name}"
+
 
 class BusinessProfile(models.Model):
     SECTOR_CHOICES = [
-        ('Tec', 'Tech'),
+        ('Technology', 'Technology'),
+        ('Retail', 'Retail'),
+        ('Manufacturing', 'Manufacturing'),
+        ('Healthcare', 'Healthcare'),
+        ('Finance', 'Finance'),
+        ('Education', 'Education'),
+        ('Other', 'Other'),
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -37,7 +50,7 @@ class BusinessProfile(models.Model):
     founder_name = models.CharField(max_length=255, default="Unknown")
     registration_number = models.CharField(max_length=100, default="N/A")
     business_location = models.CharField(max_length=255, default="Unspecified")
-    start_date = models.DateField(default=timezone.now)
+    start_date = models.DateField(null=True, blank=True)
     description = models.TextField(default="No description provided")
     sector = models.CharField(max_length=20, choices=SECTOR_CHOICES, default='Other')
     funding_required = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
@@ -45,17 +58,16 @@ class BusinessProfile(models.Model):
     expected_roi = models.FloatField(default=0.0)
     revenue_model = models.CharField(max_length=255, default="Not specified")
     projected_revenue = models.TextField(default="Not specified")
-    business_plan = models.FileField(upload_to='media/business_plans/', default="N/A")
-    project_image = models.ImageField(upload_to='media/project_images/', default="default.jpg")
-    registration_document = models.FileField(upload_to='media/registration_documents/', default="N/A")
-    pitch_deck = models.FileField(upload_to='media/registration_documents/', default="N/A")
+    business_plan = models.FileField(upload_to='business_plans/', null=True, blank=True)
+    project_image = models.ImageField(upload_to='project_images/', null=True, blank=True)
+    registration_document = models.FileField(upload_to='registration_docs/', null=True, blank=True)
+    pitch_deck = models.FileField(upload_to='pitch_decks/', null=True, blank=True)
 
     def __str__(self):
-        return self.project_name
-    
+        return f"{self.user.username} - {self.project_name}"
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
 
     def __str__(self) -> str:
         return f"Profile {self.user.username}"

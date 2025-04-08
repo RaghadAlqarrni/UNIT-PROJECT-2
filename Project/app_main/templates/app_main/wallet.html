@@ -31,12 +31,9 @@
                     <img src="{% static 'img/Creditcard.png' %}" alt="Mobile Payment" class="img-fluid">
                     <div class="button">
                         <a href="#signup" class="btn">Diposit</a>
-                        <a href="#signup" class="btn">Withsrawal</a>
-                    </div>
-                    
-                </div>
-                    
-            </div>
+                        <a href="#signup" class="btn">withdraw</a>
+                    </div>                   
+                </div>                    
             </div>
         </div>
     </div>
@@ -74,11 +71,13 @@
     .button{
         display: flex;
         flex-direction:row;
-        gap: 1rem;   
+        gap: 1rem;  
     }
-
+    .btn{
+        border-radius: 40px; 
+    }
     .wallet-image img {
-        max-width: 100%; 
+        max-width: 100%;
         height: auto; 
     }
 </style>
