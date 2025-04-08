@@ -30,7 +30,7 @@
                 <div class="wallet-image">
                     <img src="{% static 'img/Creditcard.png' %}" alt="Mobile Payment" class="img-fluid">
                     <div class="button">
-                        <a href="#signup" class="btn">Diposit</a>
+                        <a href="{% url 'app_main:diposit' %}" class="btn">Diposit</a>
                         <a href="#signup" class="btn">withdraw</a>
                     </div>                   
                 </div>                    
@@ -40,34 +40,22 @@
 </section>
 
 <style>
-    .wd {
-        padding-left: 4rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
 
-    .wdd {
-        padding-left: 4rem;
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
+.wd {
+    padding-left: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
 
-    .wallet-info {
-        display: flex;
-        align-items: center;
-        gap: 2rem; 
-    }
+.wdd {
+    padding-left: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
 
-    .wallet-image {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-top: 6rem;
-        flex-direction: column;
-        gap: 1rem;
-    }
+
     .button{
         display: flex;
         flex-direction:row;
@@ -80,6 +68,19 @@
         max-width: 100%;
         height: auto; 
     }
+    .wallet-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 6rem;
+    flex-direction: column;
+    gap: 1rem;
+}
+.wallet-info {
+    display: flex;
+    align-items: center;
+    gap: 2rem; 
+}
 </style>
 
 {% endblock %}

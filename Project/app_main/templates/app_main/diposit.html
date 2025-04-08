@@ -1,0 +1,71 @@
+{% extends 'app_main/base.html' %}
+{% block title %}diposit{% endblock %}
+{% load static %}
+{% block content %}
+
+<main>
+    <section>
+        <div class="container p-4">
+            <div class="row align-items-center"> 
+                <div class="col-md-8">
+                    <div class="wd">
+                        <h1 class="p-4">Your adding money to your <br> wallet</h1>
+                        <div class="button">
+                            <a href="{% url 'app_main:diposit' %}" class="btn">Credit/Debit Card Payment</a>
+                        </div>   
+                    </div>
+                </div>
+                <div class="col-md-4"> 
+                    <div class=" pt-2 mobile-image">
+                        <img src="{% static 'img/Mobile-Payment.png' %}" alt="Mobile Payment" class="img-fluid">                 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <style>
+        .wd {
+            display: flex;
+            flex-direction: column;
+            padding-top: 3rem;
+            gap: 1rem;
+        }
+
+        .button {
+    display: flex;
+}
+
+.btn {
+    border-radius: 40px; 
+    background-color: transparent; 
+    color: white; 
+    border: 2px solid #F5CA41; 
+    padding: 10px 20px; 
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+.btn:hover {
+    background-color: white; 
+    color: #006c48; 
+}
+
+        .mobile-image img {
+            max-width: 100%;
+            padding-top: 4rem;
+            height: auto; 
+        }
+
+        @media (max-width: 768px) {
+            .mobile-image {
+                display: flex;
+                justify-content: center;
+                padding-left: 0; 
+                
+            }
+        }
+    </style>
+    
+</main>
+
+{% endblock %}

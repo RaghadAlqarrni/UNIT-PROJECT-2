@@ -36,6 +36,9 @@ def about_view(request):
 def wallet_view(request):
     return render(request, 'app_main/wallet.html')
 
+def diposit(request):
+    return render(request, 'app_main/diposit.html')
+
 
 
 
