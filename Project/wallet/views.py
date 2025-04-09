@@ -8,16 +8,35 @@ from django.contrib import messages
 
 
 
+from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
+from .models import Payment
+from django.shortcuts import render
+
+@login_required
 def wallet_view(request):
-    return render(request, 'wallet/wallet.html')
+    user = request.user
+
+   
+    total_balance = Payment.objects.filter(user=user, is_successful=True).aggregate(Sum('amount'))['amount__sum'] or 0
+
+   
+    wallet_token = 7787  
+
+    context = {
+        'wallet_owner': user.username,
+        'wallet_token': wallet_token,
+        'wallet_balance': total_balance,
+    }
+    return render(request, 'wallet/wallet.html', context)
 
 
 @login_required
 def diposit(request):
     if request.method == 'POST':
-        card_number = request.POST.get('card-number')
-        card_name = request.POST.get('card-name')
-        expiry_date = request.POST.get('expiry-date')
+        card_number = request.POST.get('card_number')
+        card_name = request.POST.get('card_name')
+        expiry_date = request.POST.get('expiry_date')
         cvv = request.POST.get('cvv')
         amount = request.POST.get('amount')
 
