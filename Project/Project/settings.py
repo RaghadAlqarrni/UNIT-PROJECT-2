@@ -129,23 +129,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-TWILIO_ACCOUNT_SID = "your_account_sid"
-TWILIO_AUTH_TOKEN = "your_auth_token"
-TWILIO_PHONE_NUMBER = "your_twilio_phone_number"
-
-
-
-LANGUAGES = [
-    ('en', _('English')),
-    ('ar', _('Arabic')),
-]
-
-LANGUAGE_CODE = 'en' 
-
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
-
 LOCALE_PATHS = [
     BASE_DIR / 'locale/',  
 ]
@@ -160,3 +143,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 AUTH_USER_MODEL = 'auth.User'
+
+
+USE_I18N = True
+USE_L10N = True
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('ar', 'العربية'),
+]
+

@@ -21,7 +21,7 @@ def wallet_view(request):
     total_balance = Payment.objects.filter(user=user, is_successful=True).aggregate(Sum('amount'))['amount__sum'] or 0
 
    
-    wallet_token = 7787  
+    wallet_token = 231002  
 
     context = {
         'wallet_owner': user.username,

@@ -7,7 +7,7 @@
         <h3 class="text-center text-primary fw-bold">Enter OTP</h3>
         <p class="text-center text-muted">We've sent a verification code to your phone.</p>
 
-        <!-- ✅ عرض رسائل الخطأ والنجاح -->
+       
         {% if messages %}
             <div class="alert alert-info">
                 {% for message in messages %}
@@ -16,7 +16,7 @@
             </div>
         {% endif %}
 
-        <!-- ✅ نموذج إدخال OTP -->
+       
         <form method="POST">
             {% csrf_token %}
             <div class="d-flex justify-content-between">
@@ -34,7 +34,7 @@
     </div>
 </div>
 
-<!-- ✅ تحسين تجربة المستخدم عبر JavaScript -->
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const otpInputs = document.querySelectorAll('.otp-input');
@@ -55,7 +55,7 @@
     });
 </script>
 
-<!-- ✅ تحسين مظهر الصفحة -->
+
 <style>
     body {
         background-color: #f8f9fa;
@@ -74,17 +74,17 @@
         font-weight: bold;
         text-align: center;
         border-radius: 8px;
-        border: 2px solid #007bff;
+        border: 2px solid #006c48;
         margin: 5px;
     }
 
     .btn-primary {
-        background: #007bff;
+        background: #006c48;
         border: none;
     }
 
     .btn-primary:hover {
-        background: #0056b3;
+        background: #006c48;
     }
 </style>
 

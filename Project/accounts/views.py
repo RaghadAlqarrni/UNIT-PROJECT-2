@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import InvestorSignUpForm, BusinessSignUpForm
 from .models import *
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import update_session_auth_hash
@@ -12,41 +10,6 @@ from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.db import transaction
 from datetime import datetime
-
-def investor_signup(request):
-    if request.method == 'POST':
-        form = InvestorSignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-           
-            InvestorProfile.objects.create(
-                user=user,
-                investment_preferences=form.cleaned_data['investment_preferences'],
-                portfolio_size=form.cleaned_data['portfolio_size']
-            )
-            login(request, user)
-            return redirect('app_main:main_view')
-    else:
-        form = InvestorSignUpForm()
-    return render(request, 'accounts/investor_signup.html', {'form': form})
-
-def business_signup(request):
-    if request.method == 'POST':
-        form = BusinessSignUpForm(request.POST, request.FILES)
-        if form.is_valid():
-            user = form.save()
-            
-            BusinessProfile.objects.create(
-                user=user,
-                company_name=form.cleaned_data['company_name'],
-                company_description=form.cleaned_data['company_description'],
-                industry=form.cleaned_data['industry']
-            )
-            login(request, user)
-            return redirect('app_main:main_view')
-    else:
-        form = BusinessSignUpForm()
-    return render(request, 'accounts/business_signup.html', {'form': form})
 
 def sign_in(request):
     if request.method == 'POST':
@@ -142,12 +105,6 @@ def sign_out(request):
     logout(request)
     return redirect('app_main:main_view') 
 
-from django.shortcuts import render, redirect
-from django.contrib.auth import login
-from django.contrib import messages
-from django.contrib.auth.models import User
-from .models import InvestorProfile, BusinessProfile
-from datetime import datetime
 
 def signup_view(request):
     if request.method == 'POST':
