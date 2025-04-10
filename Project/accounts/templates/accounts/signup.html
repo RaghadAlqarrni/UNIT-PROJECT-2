@@ -5,16 +5,18 @@
 {% block content %}
 <div class="container mt-5">
     <h2 class="mb-4">Sign Up</h2>
+
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-info">{{ message }}</div>
         {% endfor %}
     {% endif %}
-    <form method="POST" enctype="multipart/form-data"> 
+
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        
+
         <div class="form-group">
-            <label for="user_type">Select User Type:</label>
+            <label for="user_type">User Type:</label>
             <select class="form-control" name="user_type" id="user_type" required>
                 <option value="investor">Investor</option>
                 <option value="business">Business Owner</option>
@@ -22,209 +24,107 @@
         </div>
 
         <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" class="form-control" name="username" id="username" required>
+            <label>Username:</label>
+            <input type="text" class="form-control" name="username" required>
         </div>
 
         <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" class="form-control" name="email" id="email" required>
+            <label>Email:</label>
+            <input type="email" class="form-control" name="email" required>
         </div>
 
         <div class="form-group">
-            <label for="password1">Password:</label>
-            <input type="password" class="form-control" name="password1" id="password1" required>
+            <label>Password:</label>
+            <input type="password" class="form-control" name="password1" required>
         </div>
 
         <div class="form-group">
-            <label for="password2">Confirm Password:</label>
-            <input type="password" class="form-control" name="password2" id="password2" required>
+            <label>Confirm Password:</label>
+            <input type="password" class="form-control" name="password2" required>
         </div>
 
         <!-- Investor Fields -->
-        <div id="investor_fields" class="additional_fields" style="display:none;">
-            <h5 class="mt-4">Investor Information</h5>
+        <div id="investor_fields" class="additional_fields" style="display: none;">
+            <h4 class="mt-4">Investor Information</h4>
 
-            <div class="form-group">
-                <label for="id_number">ID Number:</label>
-                <input type="text" class="form-control" name="id_number" id="id_number">
-            </div>
+            <input type="text" name="id_number" placeholder="ID Number" class="form-control mb-2">
+            <input type="text" name="first_name" placeholder="First Name" class="form-control mb-2">
+            <input type="text" name="middle_name" placeholder="Middle Name" class="form-control mb-2">
+            <input type="text" name="last_name" placeholder="Last Name" class="form-control mb-2">
+            <input type="text" name="investment_preferences" placeholder="Investment Preferences" class="form-control mb-2">
+            <input type="number" step="0.01" name="portfolio_size" placeholder="Portfolio Size" class="form-control mb-2">
+            <input type="text" name="income_sources" placeholder="Income Sources" class="form-control mb-2">
+            <input type="text" name="employment_status" placeholder="Employment Status" class="form-control mb-2">
+            <input type="number" step="0.01" name="monthly_income" placeholder="Monthly Income" class="form-control mb-2">
+            <input type="text" name="investor_type" placeholder="Investor Type" class="form-control mb-2">
 
-            <div class="form-group">
-                <label for="first_name">First Name:</label>
-                <input type="text" class="form-control" name="first_name" id="first_name">
-            </div>
+            <select name="investment_size" class="form-control mb-2">
+                <option value="">Select Investment Size</option>
+                <option value="Small">Small</option>
+                <option value="Medium">Medium</option>
+                <option value="Large">Large</option>
+            </select>
 
-            <div class="form-group">
-                <label for="middle_name">Middle Name:</label>
-                <input type="text" class="form-control" name="middle_name" id="middle_name">
-            </div>
+            <select name="sector" class="form-control mb-2">
+                <option value="">Sector of Interest</option>
+                <option value="Technology">Technology</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Finance">Finance</option>
+                <option value="Real Estate">Real Estate</option>
+                <option value="Education">Education</option>
+                <option value="Energy">Energy</option>
+                <option value="Other">Other</option>
+            </select>
 
-            <div class="form-group">
-                <label for="last_name">Last Name:</label>
-                <input type="text" class="form-control" name="last_name" id="last_name">
-            </div>
-
-            <div class="form-group">
-                <label for="investment_preferences">Investment Preferences:</label>
-                <input type="text" class="form-control" name="investment_preferences" id="investment_preferences">
-            </div>
-
-            <div class="form-group">
-                <label for="portfolio_size">Portfolio Size:</label>
-                <input type="number" class="form-control" name="portfolio_size" id="portfolio_size" step="0.01">
-            </div>
-
-            <div class="form-group">
-                <label for="income_sources">Income Sources:</label>
-                <input type="text" class="form-control" name="income_sources" id="income_sources">
-            </div>
-
-            <div class="form-group">
-                <label for="employment_status">Employment Status:</label>
-                <input type="text" class="form-control" name="employment_status" id="employment_status">
-            </div>
-
-            <div class="form-group">
-                <label for="monthly_income">Monthly Income:</label>
-                <input type="number" class="form-control" name="monthly_income" id="monthly_income" step="0.01">
-            </div>
-
-            <div class="form-group">
-                <label for="investor_type">Investor Type:</label>
-                <input type="text" class="form-control" name="investor_type" id="investor_type" required>
-            </div>
-
-            <div class="form-group">
-                <label for="investment_size">Investment Size:</label>
-                <select class="form-control" name="investment_size" id="investment_size" required>
-                    <option value="Small">Small</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Large">Large</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="sector">Sector of Interest:</label>
-                <select class="form-control" name="sector" id="sector" required>
-                    <option value="Technology">Technology</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Retail">Retail</option>
-                    <option value="Real Estate">Real Estate</option>
-                    <option value="Energy">Energy</option>
-                    <option value="Entertainment">Entertainment</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-
-            <div class="form-group form-check">
+            <div class="form-check mb-2">
                 <input type="checkbox" class="form-check-input" name="beneficial_owner" id="beneficial_owner">
-                <label class="form-check-label" for="beneficial_owner">I am the beneficial owner of this account</label>
+                <label for="beneficial_owner" class="form-check-label">I am the beneficial owner of this account</label>
             </div>
         </div>
 
         <!-- Business Fields -->
-        <div id="business_fields" class="additional_fields" style="display:none;">
-            <h5 class="mt-4">Business Owner Information</h5>
+        <div id="business_fields" class="additional_fields" style="display: none;">
+            <h4 class="mt-4">Business Owner Information</h4>
 
-            <div class="form-group">
-                <label for="project_name">Project Name:</label>
-                <input type="text" class="form-control" name="project_name" id="project_name">
-            </div>
+            <input type="text" name="project_name" placeholder="Project Name" class="form-control mb-2">
+            <input type="text" name="company_name" placeholder="Company Name" class="form-control mb-2">
+            <input type="text" name="founder_name" placeholder="Founder Name" class="form-control mb-2">
+            <input type="text" name="registration_number" placeholder="Registration Number" class="form-control mb-2">
+            <input type="text" name="business_location" placeholder="Business Location" class="form-control mb-2">
+            <input type="date" name="start_date" class="form-control mb-2">
+            <textarea name="description" placeholder="Company Description" class="form-control mb-2"></textarea>
 
-            <div class="form-group">
-                <label for="company_name">Company Name:</label>
-                <input type="text" class="form-control" name="company_name" id="company_name">
-            </div>
+            <select name="sector_business" class="form-control mb-2">
+                <option value="">Select Sector</option>
+                <option value="Technology">Technology</option>
+                <option value="Retail">Retail</option>
+                <option value="Manufacturing">Manufacturing</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Finance">Finance</option>
+                <option value="Education">Education</option>
+                <option value="Other">Other</option>
+            </select>
 
-            <div class="form-group">
-                <label for="founder_name">Founder Name:</label>
-                <input type="text" class="form-control" name="founder_name" id="founder_name">
-            </div>
+            <input type="number" step="0.01" name="funding_required" placeholder="Funding Required" class="form-control mb-2">
+            <input type="number" step="0.01" name="equity_offered" placeholder="Equity Offered (%)" class="form-control mb-2">
+            <input type="number" step="0.01" name="expected_roi" placeholder="Expected ROI (%)" class="form-control mb-2">
+            <input type="text" name="revenue_model" placeholder="Revenue Model" class="form-control mb-2">
+            <textarea name="projected_revenue" placeholder="Projected Revenue" class="form-control mb-2"></textarea>
 
-            <div class="form-group">
-                <label for="registration_number">Registration Number:</label>
-                <input type="text" class="form-control" name="registration_number" id="registration_number">
-            </div>
+            <label>Business Plan (PDF):</label>
+            <input type="file" name="business_plan" class="form-control mb-2">
 
-            <div class="form-group">
-                <label for="business_location">Business Location:</label>
-                <input type="text" class="form-control" name="business_location" id="business_location">
-            </div>
+            <label>Project Image:</label>
+            <input type="file" name="project_image" class="form-control mb-2">
 
-            <div class="form-group">
-                <label for="start_date">Start Date:</label>
-                <input type="date" class="form-control" name="start_date" id="start_date">
-            </div>
+            <label>Registration Document:</label>
+            <input type="file" name="registration_document" class="form-control mb-2">
 
-            <div class="form-group">
-                <label for="description">Company Description:</label>
-                <textarea class="form-control" name="description" id="description"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="sector_business">Sector:</label>
-                <select class="form-control" name="sector_business" id="sector_business">
-                    <option value="Technology">Technology</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Education">Education</option>
-                    <option value="Retail">Retail</option>
-                    <option value="Manufacturing">Manufacturing</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="funding_required">Funding Required:</label>
-                <input type="number" step="0.01" class="form-control" name="funding_required" id="funding_required">
-            </div>
-
-            <div class="form-group">
-                <label for="equity_offered">Equity Offered (%):</label>
-                <input type="number" step="0.01" class="form-control" name="equity_offered" id="equity_offered">
-            </div>
-
-            <div class="form-group">
-                <label for="expected_roi">Expected ROI (%):</label>
-                <input type="number" step="0.01" class="form-control" name="expected_roi" id="expected_roi">
-            </div>
-
-            <div class="form-group">
-                <label for="revenue_model">Revenue Model:</label>
-                <input type="text" class="form-control" name="revenue_model" id="revenue_model">
-            </div>
-
-            <div class="form-group">
-                <label for="projected_revenue">Projected Revenue:</label>
-                <textarea class="form-control" name="projected_revenue" id="projected_revenue"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="business_plan">Business Plan (PDF):</label>
-                <input type="file" class="form-control" name="business_plan" id="business_plan">
-            </div>
-
-            <div class="form-group">
-                <label for="project_image">Project Image:</label>
-                <input type="file" class="form-control" name="project_image" id="project_image">
-            </div>
-
-            <div class="form-group">
-                <label for="registration_document">Registration Document:</label>
-                <input type="file" class="form-control" name="registration_document" id="registration_document">
-            </div>
-
-            <div class="form-group">
-                <label for="pitch_deck">Pitch Deck:</label>
-                <input type="file" class="form-control" name="pitch_deck" id="pitch_deck">
-            </div>
+            <label>Pitch Deck:</label>
+            <input type="file" name="pitch_deck" class="form-control mb-2">
         </div>
 
-        <div class="form-group mt-4">
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
-        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-3">Register</button>
     </form>
 </div>
 
@@ -238,14 +138,14 @@
             if (userType.value === 'investor') {
                 investorFields.style.display = 'block';
                 businessFields.style.display = 'none';
-            } else {
+            } else if (userType.value === 'business') {
                 investorFields.style.display = 'none';
                 businessFields.style.display = 'block';
             }
         }
 
         userType.addEventListener('change', toggleFields);
-        toggleFields(); 
+        toggleFields();  // Run once on load
     });
 </script>
 {% endblock %}

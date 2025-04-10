@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from django.utils.translation import gettext_lazy as _
 
@@ -153,3 +156,10 @@ LANGUAGES = [
     ('ar', 'العربية'),
 ]
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBacke'  
+EMAIL_HOST = 'smtp.gmail.com'  
+EMAIL_PORT = 587 
+EMAIL_USE_TLS = True  
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD") 

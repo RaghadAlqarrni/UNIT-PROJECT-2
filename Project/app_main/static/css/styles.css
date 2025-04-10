@@ -177,10 +177,19 @@ main {
     text-underline-offset: 5px;
     color: #005640;
 }
+.gg{
+    padding-top: 4rem;
+}
 
+.bg{
+    background-color: #006C48;
+    text-align: center;
+}
 
-
-
+.icon{
+    color: #005640;
+    font-size: 50px;
+}
 .ttext-primary{
     color: #D4A632;
 }
@@ -216,4 +225,9 @@ main {
 .language-label {
     font-size: 14px;
     color: #333;
+}
+
+.io{
+    padding: 10rem 5rem;
+    gap: 3rem;
 }
