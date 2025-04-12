@@ -1,0 +1,34 @@
+{% extends 'app_main/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5 text-white">
+  <div class="card mb-4 p-4" style="background-color: #6AA894; border-radius: 12px;">
+    <div class="d-flex align-items-center">
+      <img src="{{ owner.profile_image.url }}" class="rounded-circle me-3" width="80" height="80" alt="Owner Photo">
+      <div>
+        <h4 class="mb-0">{{ owner.user.get_full_name }}</h4>
+        <p class="text-white-50 mb-0">{{ owner.user.email }}</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="mb-5">
+    <h5 class="text-warning">Project Statistics</h5>
+    <div class="row">
+      <div class="col-md-4">Total Projects: <strong>{{ owner.projects.count }}</strong></div>
+      <div class="col-md-4">Successful Fundings: <strong>{{ owner.successful_projects }}</strong></div>
+      <div class="col-md-4">Avg. Investment Goal: <strong>{{ owner.avg_goal }}</strong></div>
+    </div>
+  </section>
+
+  <section>
+    <h5 class="text-warning">Business Preferences</h5>
+    <div class="row">
+      <div class="col-md-6">Industry: <strong>{{ owner.industry }}</strong></div>
+      <div class="col-md-6">Location: <strong>{{ owner.location }}</strong></div>
+      <div class="col-md-6">Funding Stages: <strong>{{ owner.funding_stage }}</strong></div>
+    </div>
+  </section>
+</div>
+{% endblock content %}

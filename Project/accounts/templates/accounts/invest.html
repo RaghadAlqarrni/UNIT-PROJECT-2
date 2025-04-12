@@ -1,0 +1,17 @@
+{% extends 'app_main/base.html' %}
+
+{% block content %}
+<div class="container my-5 text-white">
+    <h3>Invest in {{ project.project_name }}</h3>
+    <p>Funding Goal: {{ project.funding_required }} | Raised: {{ project.amount_raised }}</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Investment Amount (SAR)</label>
+            {{ form.amount }}
+        </div>
+        <button type="submit" class="btn btn-warning mt-3">Confirm Investment</button>
+    </form>
+</div>
+{% endblock %}

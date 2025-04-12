@@ -1,15 +1,46 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import *
-from django.core.files.storage import FileSystemStorage
-from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import logout
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.models import User
-from django.db import transaction
-from datetime import datetime
+from .models import *
+from .forms import *
+from wallet.models import Payment
+from django.db.models import Sum
+
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from xhtml2pdf import pisa
+from io import BytesIO
+
+
+def send_investment_contract(user, project, amount):
+    html = render_to_string('app_main/mail/investment_contract.html', {
+        'user': user,
+        'project': project,
+        'amount': amount,
+    })
+
+    pdf_file = BytesIO()
+    pisa_status = pisa.CreatePDF(html, dest=pdf_file)
+
+    if pisa_status.err:
+        print("PDF generation failed")
+        return
+
+    email = EmailMessage(
+        subject="Investment Confirmation - Namaa",
+        body=f"Dear {user.get_full_name()},\n\nThank you for investing in {project.project_name}. Please find your contract attached.",
+        from_email="noreply@namaa.com",
+        to=[user.email],
+    )
+
+    email.attach('investment_contract.pdf', pdf_file.getvalue(), 'application/pdf')
+    email.send()
+
+
 
 def sign_in(request):
     if request.method == 'POST':
@@ -23,129 +54,62 @@ def sign_in(request):
             messages.error(request, 'Invalid username or password')
     return render(request, 'accounts/signin.html')
 
-@login_required
-def profile(request, user_name):
-
-    try:
-        user = User.objects.get(username=user_name)
-        if not Profile.objects.filter(user=user).first():
-            new_profile = Profile(user=user)
-            new_profile.save()
-
-    except Exception as e:
-        print(e)
-    
-    return render(request, 'accounts/profile.html', {"user" : user})
-
-
-@login_required
-def edit_profile(request):
-    user = request.user
-    profile = None
-    profile_type = None
-
-    if hasattr(user, 'investor_profile'):
-        profile = user.investor_profile
-        profile_type = 'investor'
-    elif hasattr(user, 'business_profile'):
-        profile = user.business_profile
-        profile_type = 'business'
-
-    if request.method == 'POST':
-        
-        user.first_name = request.POST.get('first_name', user.first_name)
-        user.last_name = request.POST.get('last_name', user.last_name)
-        user.email = request.POST.get('email', user.email)
-        user.save()
-
-        
-        if profile_type == 'investor':
-            profile.investment_preferences = request.POST.get('investment_preferences', profile.investment_preferences)
-            profile.portfolio_size = request.POST.get('portfolio_size', profile.portfolio_size)
-            profile.save()
-        elif profile_type == 'business':
-            profile.company_name = request.POST.get('company_name', profile.company_name)
-            profile.industry = request.POST.get('industry', profile.industry)
-            profile.project_name = request.POST.get('project_name', profile.project_name)
-            profile.funding_required = request.POST.get('funding_required', profile.funding_required)
-            profile.description = request.POST.get('description', profile.description)
-            profile.save()
-
-        messages.success(request, 'profile updated successfully')
-        return redirect('accounts:profile')
-
-    context = {
-        'user': user,
-        'profile': profile,
-        'profile_type': profile_type
-    }
-    return render(request, 'accounts/edit_profile.html', context)
-
-
-
 
 @login_required
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
-            user = form.save()  
-            update_session_auth_hash(request, user)  
+            user = form.save()
+            update_session_auth_hash(request, user)
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('accounts:profile') 
+            return redirect('accounts:profile')
         else:
             messages.error(request, 'Please correct the error below.')
     else:
-        form = PasswordChangeForm(request.user)  
+        form = PasswordChangeForm(request.user)
 
     return render(request, 'accounts/change_password.html', {'form': form})
 
+
 def sign_out(request):
     logout(request)
-    return redirect('app_main:main_view') 
+    return redirect('app_main:main_view')
+
 
 def signup_view(request):
     if request.method == 'POST':
         user_type = request.POST.get('user_type')
-        username = request.POST.get('username').strip()
+        username = request.POST.get('username')
         email = request.POST.get('email')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
-
-        if not username or not email or not password1 or not password2:
-            messages.error(request, "All fields are required.")
-            return redirect('accounts:sign_up')
 
         if password1 != password2:
             messages.error(request, "Passwords do not match.")
             return redirect('accounts:sign_up')
 
         if User.objects.filter(username=username).exists():
-            messages.error(request, "Username already exists.")
+            messages.error(request, "Username already taken.")
             return redirect('accounts:sign_up')
 
         user = User.objects.create_user(username=username, email=email, password=password1)
+        user.save()
 
         if user_type == 'investor':
-            InvestorProfile.objects.create(
+            profile = InvestorProfile.objects.create(
                 user=user,
-                id_number=request.POST.get('id_number'),
-                first_name=request.POST.get('first_name'),
-                middle_name=request.POST.get('middle_name'),
-                last_name=request.POST.get('last_name'),
-                investment_preferences=request.POST.get('investment_preferences', ''),
-                portfolio_size=request.POST.get('portfolio_size') or 0,
-                income_sources=request.POST.get('income_sources', ''),
-                employment_status=request.POST.get('employment_status', ''),
-                monthly_income=request.POST.get('monthly_income') or 0,
-                beneficial_owner='beneficial_owner' in request.POST,
-                investor_type=request.POST.get('investor_type'),
+                roi=0.0,
+                level='Newbie',
+                employment_status=request.POST.get('employment_status'),
+                preferred_investment_type=request.POST.get('preferred_investment_type'),
+                investment_duration=request.POST.get('investment_duration'),
+                industries_of_interest=request.POST.get('industries_of_interest'),
                 investment_size=request.POST.get('investment_size'),
-                sector=request.POST.get('sector')
             )
-
+            profile.save()
         elif user_type == 'business':
-            BusinessProfile.objects.create(
+            profile = BusinessProfile.objects.create(
                 user=user,
                 project_name=request.POST.get('project_name'),
                 company_name=request.POST.get('company_name'),
@@ -153,21 +117,106 @@ def signup_view(request):
                 registration_number=request.POST.get('registration_number'),
                 business_location=request.POST.get('business_location'),
                 start_date=request.POST.get('start_date') or None,
-                description=request.POST.get('description', ''),
+                description=request.POST.get('description'),
                 sector=request.POST.get('sector_business'),
-                funding_required=request.POST.get('funding_required') or 0,
-                equity_offered=request.POST.get('equity_offered') or 0,
-                expected_roi=request.POST.get('expected_roi') or 0,
-                revenue_model=request.POST.get('revenue_model', ''),
-                projected_revenue=request.POST.get('projected_revenue', ''),
+                funding_required=request.POST.get('funding_required') or 0.0,
+                equity_offered=request.POST.get('equity_offered') or 0.0,
+                expected_roi=request.POST.get('expected_roi') or 0.0,
+                revenue_model=request.POST.get('revenue_model'),
+                projected_revenue=request.POST.get('projected_revenue'),
                 business_plan=request.FILES.get('business_plan'),
                 project_image=request.FILES.get('project_image'),
                 registration_document=request.FILES.get('registration_document'),
-                pitch_deck=request.FILES.get('pitch_deck')
+                pitch_deck=request.FILES.get('pitch_deck'),
             )
+            profile.save()
 
         login(request, user)
-        messages.success(request, "Account created successfully!")
         return redirect('app_main:main_view')
 
     return render(request, 'accounts/signup.html')
+
+
+@login_required
+def investor_dashboard(request):
+    try:
+        investor = InvestorProfile.objects.get(user=request.user)
+    except InvestorProfile.DoesNotExist:
+        messages.error(request, "You are not registered as an investor.")
+        return redirect('app_main:main_view')
+
+    investments = Investment.objects.filter(investor=investor).select_related('project')
+    notifications = Notification.objects.filter(user=request.user).order_by('-timestamp')[:5]
+
+    for inv in investments:
+        inv.project.funding_percentage = (inv.project.amount_raised / inv.project.funding_required) * 100
+
+    return render(request, 'accounts/Investor_dashboard.html', {
+        'investor': investor,
+        'investments': investments,
+        'notifications': notifications,
+    })
+
+
+def send_notification(user, message):
+    Notification.objects.create(user=user, message=message)
+
+
+@login_required
+def business_profile_view(request):
+    profile = get_object_or_404(BusinessProfile, user=request.user)
+
+    return render(request, 'accounts/business_owner_profile.html', {'profile': profile})
+
+
+@login_required
+def invest_in_project(request, project_id):
+    
+    project = get_object_or_404(BusinessProfile, id=project_id)
+
+    
+    try:
+        investor = InvestorProfile.objects.get(user=request.user)
+    except InvestorProfile.DoesNotExist:
+        messages.error(request, "This action is only available for investors.")
+        return redirect('accounts:profile')
+
+    if request.method == 'POST':
+        form = InvestmentForm(request.POST)
+        if form.is_valid():
+            investment = form.save(commit=False)
+            investment.investor = investor
+            investment.project = project
+
+            
+            total_balance = Payment.objects.filter(user=request.user, is_successful=True).aggregate(Sum('amount'))['amount__sum'] or 0
+
+            if investment.amount > total_balance:
+                messages.error(request, "You don't have enough balance in your wallet.")
+                return redirect('wallet:wallet_view')
+
+            investment.save()
+            project.amount_raised += investment.amount
+            project.save()
+
+            Notification.objects.create(
+                user=request.user,
+                message=f"Your investment of {investment.amount} has been added to {project.project_name}."
+            )
+            send_investment_contract(request.user, project, investment.amount)
+
+            messages.success(request, "Investment completed successfully.")
+            return redirect('accounts:investor_dashboard')
+    else:
+        form = InvestmentForm()
+
+    return render(request, 'accounts/invest.html', {'form': form, 'project': project})
+
+def profile(request):
+    if hasattr(request.user, 'businessprofile'):
+        return redirect('accounts:business_dashboard')
+    elif hasattr(request.user, 'investorprofile'):
+        return redirect('accounts:investor_dashboard')
+    else:
+        messages.warning(request, "No profile associated with this user.")
+        return redirect('accounts:sign_up')

@@ -1,75 +1,38 @@
 {% extends 'app_main/base.html' %}
 {% load static %}
-{% load i18n %}
-
-{% block title %}{% trans "My Profile" %}{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="row">
-        <div class="col-lg-8 mx-auto">
-            <div class="card shadow">
-                <div class="card-header s-container text-white">
-                    <h3 class="mb-0">{% trans "My Profile" %}</h3>
-                </div>
-                
-                <div class="card-body">
-                    <div class="row mb-4">
-                        <div class="col-md-4 text-center">
-                            <img src="https://via.placeholder.com/150" class="rounded-circle img-fluid" alt="{% trans 'Profile Image' %}">
-                        </div>
-                        <div class="col-md-8">
-                            <h4>{{ user.get_full_name }}</h4>
-                            <p class="text-muted">@{{ user.username }}</p>
-                            <p><i class="bi bi-envelope"></i> {{ user.email }}</p>
-                        </div>
-                    </div>
-                    
-                    <hr>
-                    
-                    {% if profile_type == 'investor' %}
-                        <h5 class="mb-3">{% trans "Investor Information" %}</h5>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><strong>{% trans "Investment Preferences" %}:</strong></p>
-                                <p>{{ profile.investment_preferences }}</p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><strong>{% trans "Portfolio Size" %}:</strong> ${{ profile.portfolio_size }}</p>
-                            </div>
-                        </div>
-                    
-                    {% elif profile_type == 'business' %}
-                        <h5 class="mb-3">{% trans "Business Information" %}</h5>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><strong>{% trans "Company Name" %}:</strong> {{ profile.company_name }}</p>
-                                <p><strong>{% trans "Industry" %}:</strong> {{ profile.industry }}</p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><strong>{% trans "Project Name" %}:</strong> {{ profile.project_name }}</p>
-                                <p><strong>{% trans "Funding Required" %}:</strong> ${{ profile.funding_required }}</p>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-12">
-                                <p><strong>{% trans "Company Description" %}:</strong></p>
-                                <p>{{ profile.description }}</p>
-                            </div>
-                        </div>
-                    {% endif %}
-                    
-                    <div class="mt-4">
-                        <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary me-2">
-                            {% trans "Edit Profile" %}
-                        </a>
-                        <a href="{% url 'accounts:change_password' %}" class="btn btn-outline-secondary">
-                            {% trans "Change Password" %}
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="container my-5 text-white">
+  <div class="card mb-4" style="background-color: #6AA894; border-radius: 12px;">
+    <div class="card-body d-flex align-items-center">
+      <img src="{% static 'img/profle.png' %}" alt="Avatar" class="rounded-circle me-3" width="80" height="80">
+      <div>
+        <h4 class="mb-0">{{ investor.user.get_full_name }}</h4>
+        <small class="text-white-50">Can be displayed publicly or as a username based on privacy settings.</small>
+      </div>
     </div>
+  </div>
+
+  <hr class="border-light">
+
+  <section class="mb-5">
+    <h5 class="mb-3">Investment Status</h5>
+    <ul class="list-unstyled">
+      <li><strong>Number of Projects Invested In:</strong> {{ investor.projects_count }}</li>
+      <li><strong>Return on Investment (ROI):</strong> {{ investor.roi }}%</li>
+      <li><strong>Investor Level:</strong> {{ investor.level }}</li>
+    </ul>
+  </section>
+
+  <hr class="border-light">
+
+  <section>
+    <h5 class="mb-3">Investment Preferences</h5>
+    <ul class="list-unstyled">
+      <li><strong>Industries of Interest:</strong> {{ investor.industries_of_interest }}</li>
+      <li><strong>Preferred Investment Size:</strong> {{ investor.investment_size }}</li>
+      <li><strong>Preferred Investment Duration:</strong> {{ investor.investment_duration }}</li>
+    </ul>
+  </section>
 </div>
-{% endblock %}
+{% endblock content %}

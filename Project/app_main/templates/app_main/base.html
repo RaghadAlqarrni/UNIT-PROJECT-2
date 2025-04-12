@@ -1,4 +1,4 @@
-{% load static i18n %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="{{ request.LANGUAGE_CODE }}">
 <head>
@@ -8,114 +8,98 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <div class="main-div">  
-       
-        <nav id="mainSiteHeader" class="navbar navbar-expand-lg navbar-light bg-white shadow-sm ">
-            <div class="container">
-                
-                <a class="navbar-brand" href="{% url 'app_main:main_view' %}">
-                    <img src="{% static 'img/logo.svg' %}" alt="Site Logo" class="primary-site-logo" width="50%">
-                </a>
+<div class="main-div">
 
-                
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <!-- Navbar -->
+    <nav id="mainSiteHeader" class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-2">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'app_main:main_view' %}">
+                <img src="{% static 'img/logo.svg' %}" alt="Site Logo" class="primary-site-logo" width="50%">
+            </a>
 
-                <div class="collapse navbar-collapse gap-2" id="navbarNav">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item"><span class="divider">|</span></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'app_main:main_view' %}">Home</a></li>
-                        <li class="nav-item"><span class="divider">|</span></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'app_business:business_detail_view' %}">Investment opportunities</a></li>
-                        <li class="nav-item"><span class="divider">|</span></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'app_main:contact' %}">contact us</a></li>
-                        <li class="nav-item"><span class="divider">|</span></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'app_main:about_view' %}">about us</a></li>
-                        <li class="nav-item"><span class="divider">|</span></li>
-                    </ul>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                   
-                    <div class="d-flex gap-2">
-                        <a class=" log" href="{% url 'accounts:sign_in' %}" > log in {% trans "" %}</a> 
-                        <a class=" sign" href="{% url 'accounts:sign_up' %}"> Sign up {% trans "" %}</a> 
-                    </div>
+            <div class="collapse navbar-collapse gap-2" id="navbarNav">
+                <ul class="navbar-nav mx-auto text-center">
+                    <li class="nav-item"><span class="divider">|</span></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app_main:main_view' %}">Home</a></li>
+                    <li class="nav-item"><span class="divider">|</span></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app_business:business_detail_view' %}">Investment opportunities</a></li>
+                    <li class="nav-item"><span class="divider">|</span></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app_main:contact' %}">contact us</a></li>
+                    <li class="nav-item"><span class="divider">|</span></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app_main:about_view' %}">about us</a></li>
+                    <li class="nav-item"><span class="divider">|</span></li>
+                </ul>
 
-
-                            
-                    {% if request.user.is_authenticated %}
-                    <div class="d-flex gap-1 align-items-center text-dark">
-                        <img src="{% static 'img/profle.png' %}" class="rounded-circle avatar" width="40" />
-                        <div class="dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ request.user.username }}
-                            </a>
-                            <ul class="dropdown-menu p-3">
-                                <li><a class="dropdown-item" href="{% url 'accounts:profile' request.user.username %}">Profile</a></li>
-                                <li><a class="dropdown-item" href="{% url 'wallet:wallet_view' %}">Your wallet</a></li>
-                                <li><a class="dropdown-item" href="{% url 'accounts:logout' %}?next={{ request.path }}">Log out</a></li>
-
-                            </ul>
+                {% if request.user.is_authenticated %}
+                <div class="d-flex gap-1 align-items-center text-dark">
+                    <img src="{% static 'img/profle.png' %}" class="rounded-circle avatar" width="40" />
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ request.user.username }}
+                        </a>
+                        <div class="dropdown-menu p-3">
+                            {% if request.user.businessprofile %}
+                                <a class="dropdown-item" href="{% url 'accounts:business_dashboard' %}">Profile</a>
+                            {% elif request.user.investorprofile %}
+                                <a class="dropdown-item" href="{% url 'accounts:investor_dashboard' %}">Profile</a>
+                            {% endif %}
+                            <a class="dropdown-item" href="{% url 'wallet:wallet_view' %}">Your wallet</a>
+                            <a class="dropdown-item" href="{% url 'accounts:logout' %}?next={{ request.path }}">Log out</a>
                         </div>
                     </div>
+                </div>
+                {% else %}
+                <div class="d-flex gap-2">
+                    <a class="log" href="{% url 'accounts:sign_in' %}">log in</a>
+                    <a class="sign" href="{% url 'accounts:sign_up' %}">Sign up</a>
+                </div>
+                {% endif %}
 
-                    {% else %}
-                    <div class="dropdown bg-transparent ">
-                            <a class="btn nav-link dropdown-toggle p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="material-symbols-outlined person">person</span>
-                            </a>
-                        <ul class="dropdown-menu p-3">
-                            <li><a class="dropdown-item" href="{% url 'accounts:sign_up' %}?next={{request.path}}">Sign up</a></li>
-                            <li><a class="dropdown-item" href="{% url 'accounts:sign_in' %}?next={{request.path}}">log in</a></li>
-                        </ul>
+                <!-- Language Switch -->
+                <form action="" method="post" class="language-form">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ request.path }}">
+                    <input name="language" type="hidden" value="{% if request.LANGUAGE_CODE == 'en' %}ar{% else %}en{% endif %}">
+                    <div class="language-switcher" onclick="this.parentElement.submit()">
+                        <img src="{% static 'img/earth.svg' %}" alt="Language" class="language-icon">
+                        <span class="language-label">
+                            {% if request.LANGUAGE_CODE == 'en' %}English{% else %}العربية{% endif %}
+                        </span>
                     </div>
-                    {% endif %}
-
-                    
-                    <form action="" method="post" class="language-form">
-                        {% csrf_token %}
-                        <input name="next" type="hidden" value="{{ request.path }}">
-                        <input name="language" type="hidden" value="{% if request.LANGUAGE_CODE == 'en' %}ar{% else %}en{% endif %}">
-                        <div class="language-switcher" onclick="this.parentElement.submit()">
-                            <img src="{% static 'img/earth.svg' %}" alt="Language" class="language-icon">
-                            <span class="language-label">
-                                {% if request.LANGUAGE_CODE == 'en' %}English{% else %}العربية{% endif %}
-                            </span>
-                        </div>
-                    </form>
-                </div>
+                </form>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-       
-        <main class="container py-4">
-            {% block content %}{% endblock %}
-        </main>
+    <!-- Page Content -->
+    <main class="container py-3">
+        {% block content %}{% endblock %}
+    </main>
 
-        
-        <footer class="bg-light text-center py-1 mt-1 ">
-            <hr class="my-3">
-            <div class="container">
-                <img src="{% static 'img/logo.svg' %}" alt="Site Logo" class="primary-site-logo" width="10%">
-                <div class="mb-2">
-                    <a href="https://facebook.com" class="text-dark me-2"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://linkedin.com" class="text-dark me-2"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://youtube.com" class="text-dark me-2"><i class="fab fa-youtube"></i></a>
-                    <a href="https://instagram.com" class="text-dark"><i class="fab fa-instagram"></i></a>
-                </div>
-                <small class="text-muted">&copy; 2024 Namaa. All rights reserved.</small>
+    <!-- Footer -->
+    <footer class="bg-light text-center py-2 mt-3">
+        <hr class="my-2">
+        <div class="container">
+            <img src="{% static 'img/logo.svg' %}" alt="Site Logo" class="primary-site-logo" width="10%">
+            <div class="mb-2">
+                <a href="https://facebook.com" class="text-dark me-2"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://linkedin.com" class="text-dark me-2"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://youtube.com" class="text-dark me-2"><i class="fab fa-youtube"></i></a>
+                <a href="https://instagram.com" class="text-dark"><i class="fab fa-instagram"></i></a>
             </div>
-        </footer>
-    </div>
+            <small class="text-muted">&copy; 2025 Namaa. All rights reserved.</small>
+        </div>
+    </footer>
+</div>
 
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

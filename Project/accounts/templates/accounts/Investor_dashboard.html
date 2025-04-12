@@ -1,0 +1,85 @@
+{% extends 'app_main/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div class="container my-5 text-white">
+
+  <!-- Investor Info -->
+  <div class="card p-4 mb-4" style="background-color: #006C48; border-radius: 12px;">
+    <div class="d-flex align-items-center">
+      <img src="{% static 'img/profle.png' %}" class="rounded-circle me-3" width="70" height="70" alt="Investor Avatar">
+      <div>
+        <h4 class="mb-1 text-white">{{ investor.user.get_full_name }}</h4>
+        <small class="text-white-50">{{ investor.user.email }}</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="row text-center mb-4">
+    <div class="col-md-4">
+      <div class="p-3" style="background-color: #6AA894; color: white; border-radius: 12px;">
+        <h6>Projects Invested</h6>
+        <strong>{{ investor.projects_count }}</strong>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="p-3" style="background-color: #6AA894; color: white; border-radius: 12px;">
+        <h6>ROI</h6>
+        <strong>{{ investor.roi }}%</strong>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="p-3" style="background-color: #6AA894; color: white; border-radius: 12px;">
+        <h6>Investor Level</h6>
+        <strong>{{ investor.level }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Investments -->
+  <h5 class="mb-3" style="color: #EFC234;">Your Investments</h5>
+  {% if investments %}
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover text-white">
+        <thead style="background-color: #006C48;">
+          <tr>
+            <th>Project</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Funding %</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for inv in investments %}
+            <tr>
+              <td>{{ inv.project.title }}</td>
+              <td>${{ inv.amount }}</td>
+              <td>{{ inv.project.status }}</td>
+              <td>{{ inv.project.funding_percentage }}%</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-light">You haven't invested in any projects yet.</p>
+  {% endif %}
+
+  <!-- Notifications -->
+  <h5 class="mt-5 mb-3" style="color: #EFC234;">Recent Notifications</h5>
+  {% if notifications %}
+    <ul class="list-group">
+      {% for note in notifications %}
+        <li class="list-group-item" style="background-color: #f8f9fa; color: #212529;">
+          {{ note.message }}
+          <small class="text-muted d-block">{{ note.timestamp|naturaltime }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-light">No new notifications.</p>
+  {% endif %}
+
+</div>
+{% endblock content %}

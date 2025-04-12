@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'app_main',
     'app_business',
     'accounts',
@@ -157,7 +158,7 @@ LANGUAGES = [
 ]
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBacke'  
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  
 EMAIL_HOST = 'smtp.gmail.com'  
 EMAIL_PORT = 587 
 EMAIL_USE_TLS = True  

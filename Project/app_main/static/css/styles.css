@@ -131,6 +131,7 @@ main {
     border:2px solid rgba(0, 0, 0, 0.4); 
 }
 
+
 .sign {
     margin-top: 3px;
     padding: 5px 20px;
@@ -227,7 +228,4 @@ main {
     color: #333;
 }
 
-.io{
-    padding: 10rem 5rem;
-    gap: 3rem;
-}
+

@@ -1,0 +1,34 @@
+{% extends 'app_main/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5 text-white">
+  <div class="card mb-4 p-4" style="background-color: #6AA894; border-radius: 12px;">
+    <div class="d-flex align-items-center">
+      <img src="{% static 'img/profle.png' %}" class="rounded-circle me-3" width="80" height="80" alt="Investor Photo">
+      <div>
+        <h4 class="mb-0">{{ investor.user.get_full_name }}</h4>
+        <p class="text-white-50 mb-0">{{ investor.user.email }}</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="mb-5">
+    <h5 class="text-warning">Investment Status</h5>
+    <div class="row">
+      <div class="col-md-4">Projects Invested In: <strong>{{ investor.projects_count }}</strong></div>
+      <div class="col-md-4">ROI: <strong>{{ investor.roi }}%</strong></div>
+      <div class="col-md-4">Level: <strong>{{ investor.level }}</strong></div>
+    </div>
+  </section>
+
+  <section>
+    <h5 class="text-warning">Investment Preferences</h5>
+    <div class="row">
+      <div class="col-md-6">Industries: <strong>{{ investor.industries_of_interest }}</strong></div>
+      <div class="col-md-6">Preferred Size: <strong>{{ investor.investment_size }}</strong></div>
+      <div class="col-md-6">Preferred Duration: <strong>{{ investor.investment_duration }}</strong></div>
+    </div>
+  </section>
+</div>
+{% endblock content %}

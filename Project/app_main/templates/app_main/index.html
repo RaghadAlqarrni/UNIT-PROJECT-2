@@ -30,41 +30,48 @@
             <h3 class="text-center">Investment Opportunities</h3>
             <div class="row text-center">
                 <div class="col-md-4">
-                    <span class="material-symbols-outlined" width="100">query_stats</span> 
+                    <span class="material-symbols-outlined fs-1" width="100">query_stats</span> 
                     <h5>Explore Investments</h5>
                     <p>Find new opportunities and grow your portfolio.</p>
                 </div>
                 <div class="col-md-4">
-                    <span class="material-symbols-outlined" width="100">autorenew</span>
+                    <span class="material-symbols-outlined fs-1" width="100">autorenew</span>
                     <h5>Promising Returns</h5>
                     <p>Invest in campaigns and enjoy rewarding profits.</p>
                 </div>
                 <div class="col-md-4">
-                    <span class="material-symbols-outlined" width="100">trackpad_input</span>
+                    <span class="material-symbols-outlined fs-1" >trackpad_input</span>
                     <h5>Track Your Investments</h5>
                     <p>Manage and monitor your investments easily.</p>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <div class="container mt-5">
-        <h3 class="text-center">Funded Companies</h3>
-        <div class="row">
-            <div class="col-md-4">
-                <img src="https://d2qzln17el2rfy.cloudfront.net/equities/campaign-662a54a8a731729dc7ac0444-1719932414334.jpg" class="img-fluid">
-                <p><strong>ROI: 14% </strong><i class="sicon-sar"></i></p>
+        <div class="container my-5 text-center">
+            <h2 class="mb-4 text-success">Explore the Latest Investment Opportunities</h2>
+            <div class="row justify-content-center">
+            {% for project in projects %}
+                <div class="col-md-6 col-lg-5 mb-4">
+                <div class="card h-100 shadow" style="border-radius: 20px;">
+                    {% if project.project_image %}
+                    <img src="{{ project.project_image.url }}" class="card-img-top" alt="Project Image" style="height: 250px; object-fit: cover; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                    {% else %}
+                    <img src="{% static 'img/placeholder.jpg' %}" class="card-img-top" alt="Placeholder Image" style="height: 250px; object-fit: cover; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                    {% endif %}
+                    <div class="card-body text-start">
+                    <h5 class="card-title">{{ project.project_name }}</h5>
+                    <p class="card-text text-muted mb-1"><strong>Founder:</strong> {{ project.founder_name }}</p>
+                    <p class="card-text text-muted mb-1"><strong>Sector:</strong> {{ project.sector }}</p>
+                    <p class="card-text">{{ project.description|truncatewords:20 }}</p>
+                    <a href="{% url 'app_business:project_opp' project.id %}" class="btn btn-success mt-2 px-4">View Project</a>
+                    </div>
+                </div>
+                </div>
+            {% empty %}
+                <p class="text-muted">No projects available at the moment.</p>
+            {% endfor %}
             </div>
-            <div class="col-md-4">
-                <img src="https://d2qzln17el2rfy.cloudfront.net/equities/campaign-662a54a8a731729dc7ac0444-1720192283696.jpg" class="img-fluid">
-                <p><strong>ROI: 15%</strong></p>
-            </div>
-            <div class="col-md-4">
-                <img src="http://img.youtube.com/vi/DzVAv0nS6y8/0.jpg" class="img-fluid">
-                <p><strong>ROI: 14%</strong></p>
-            </div>
-
+        </div>
             <section class="section section-light-bg " id="RiskDisclosures">
                 <div class="container text-center " >
                   <div class="row justify-content-center">

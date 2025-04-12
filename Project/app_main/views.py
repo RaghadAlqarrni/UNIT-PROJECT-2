@@ -9,20 +9,26 @@ from django.contrib import messages
 from .models import *
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
-
 from django.core.exceptions import ValidationError
+from django.shortcuts import render
+from accounts.models import BusinessProfile
+from xhtml2pdf import pisa
+from io import BytesIO
+
 
 def main_view(request):
     
+    latest_projects = BusinessProfile.objects.order_by('-id')[:2]
+
+    
     if request.user.is_authenticated:
-        print(request.user.email)
+        print(f"Logged in user: {request.user.email}")
     else:
         print("User is not logged in")
 
-    return render(request, 'app_main/index.html')
-
-def invester_view(request):
-    return render(request, 'app_main/invester_detail.html')
+    return render(request, 'app_main/index.html', {
+        'projects': latest_projects
+    })
 
 
 def contact(request:HttpRequest):
@@ -47,6 +53,29 @@ def contact(request:HttpRequest):
 
 def about_view(request):
     return render(request, 'app_main/about.html')
+
+
+
+
+def send_investment_contract(user, project, amount):
+    html = render_to_string("pdf_templates/investment_contract.html", {
+        'user_name': user.get_full_name(),
+        'project_name': project.project_name,
+        'investment_amount': amount,
+        'date': timezone.now().date()
+    })
+
+    result = BytesIO()
+    pisa.CreatePDF(html, dest=result)
+
+    email = EmailMessage(
+        subject="Investment Confirmation - Namaa",
+        body="Thank you for your investment. Please find the attached confirmation document.",
+        to=[user.email]
+    )
+    email.attach('investment_contract.pdf', result.getvalue(), 'application/pdf')
+    email.send()
+
 
 
 
