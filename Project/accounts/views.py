@@ -16,29 +16,34 @@ from xhtml2pdf import pisa
 from io import BytesIO
 
 
+from django.core.mail import send_mail
+
 def send_investment_contract(user, project, amount):
-    html = render_to_string('app_main/mail/investment_contract.html', {
-        'user': user,
-        'project': project,
-        'amount': amount,
-    })
+    subject = "Investment Confirmation - Namaa"
+    message = f"""
+Dear {user.get_full_name()},
 
-    pdf_file = BytesIO()
-    pisa_status = pisa.CreatePDF(html, dest=pdf_file)
+Thank you for investing in "{project.project_name}".
 
-    if pisa_status.err:
-        print("PDF generation failed")
-        return
+We confirm that your investment of ${amount} has been successfully added to the project.
 
-    email = EmailMessage(
-        subject="Investment Confirmation - Namaa",
-        body=f"Dear {user.get_full_name()},\n\nThank you for investing in {project.project_name}. Please find your contract attached.",
-        from_email="noreply@namaa.com",
-        to=[user.email],
-    )
+Project Summary:
+- Sector: {project.sector}
+- Location: {project.business_location}
+- Expected ROI: {project.expected_roi}%
+- Equity Offered: {project.equity_offered}%
 
-    email.attach('investment_contract.pdf', pdf_file.getvalue(), 'application/pdf')
-    email.send()
+You can track your investment anytime by logging into your dashboard.
+
+Thank you for using Namaa.
+
+Best regards,  
+Namaa Team
+"""
+    from_email = "noreply@namaa.com"
+    recipient_list = [user.email]
+
+    send_mail(subject, message, from_email, recipient_list)
 
 
 
