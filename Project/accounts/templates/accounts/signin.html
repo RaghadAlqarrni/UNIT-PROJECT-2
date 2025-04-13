@@ -6,7 +6,7 @@
         <div class="col-md-6">
             <div class="card shadow-lg border-0" style="border-radius: 16px;">
                 <div class="card-header text-white text-center" style="background-color: #006C48; border-top-left-radius: 16px; border-top-right-radius: 16px;">
-                    <h3 class="mb-0">Sign In</h3>
+                    <h3 class="mb-0">Log In</h3>
                 </div>
                 <div class="card-body" style="background-color: #f8f9fa;">
                     <form method="POST" action="{% url 'accounts:sign_in' %}{% if 'next' in request.GET %}?next={{request.GET.next}}{% endif %}" enctype="application/x-www-form-urlencoded">

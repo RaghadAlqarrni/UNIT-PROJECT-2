@@ -9,41 +9,7 @@ from .models import *
 from .forms import *
 from wallet.models import Payment
 from django.db.models import Sum
-
-from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
-from xhtml2pdf import pisa
-from io import BytesIO
-
-
-from django.core.mail import send_mail
-
-def send_investment_contract(user, project, amount):
-    subject = "Investment Confirmation - Namaa"
-    message = f"""
-Dear {user.get_full_name()},
-
-Thank you for investing in "{project.project_name}".
-
-We confirm that your investment of ${amount} has been successfully added to the project.
-
-Project Summary:
-- Sector: {project.sector}
-- Location: {project.business_location}
-- Expected ROI: {project.expected_roi}%
-- Equity Offered: {project.equity_offered}%
-
-You can track your investment anytime by logging into your dashboard.
-
-Thank you for using Namaa.
-
-Best regards,  
-Namaa Team
-"""
-    from_email = "noreply@namaa.com"
-    recipient_list = [user.email]
-
-    send_mail(subject, message, from_email, recipient_list)
 
 
 

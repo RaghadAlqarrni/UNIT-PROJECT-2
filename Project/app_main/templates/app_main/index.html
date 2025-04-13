@@ -10,7 +10,7 @@
         <div class="text">
             <h2>"Invest smartly and discover <br> new opportunities to grow your wealth."</h2>
             <p>"Our platform is a unique destination for smart digital investments<br> offering innovative tools and insights to help you grow your wealth with confidence."</p>
-            <a href="#signup" class="btn">Sign Up as Investor</a>
+            <a href="{% url 'accounts:sign_up' %}" class="btn">Sign Up as Investor</a>
         </div>
     </div>
 
@@ -71,7 +71,7 @@
     </div>
     {% else %}
     <div class="container text-center my-5">
-        <h4 class="text-muted">Please <a href="{% url 'accounts:sign_in' %}?next={{ request.path }}">sign in</a> to view investment opportunities.</h4>
+        <h4 class="text-muted">Please <a href="{% url 'accounts:sign_in' %}?next={{ request.path }}" class="btn">sign in</a> to view investment opportunities.</h4>
     </div>
     {% endif %}
 
