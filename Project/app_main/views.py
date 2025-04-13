@@ -16,20 +16,21 @@ from xhtml2pdf import pisa
 from io import BytesIO
 
 
-def main_view(request):
-    
-    latest_projects = BusinessProfile.objects.order_by('-id')[:2]
 
-    
+
+def main_view(request):
+    latest_projects = None
+
+   
     if request.user.is_authenticated:
+        latest_projects = BusinessProfile.objects.order_by('-id')[:2]
         print(f"Logged in user: {request.user.email}")
     else:
         print("User is not logged in")
 
     return render(request, 'app_main/index.html', {
-        'projects': latest_projects
+        'projects': latest_projects,
     })
-
 
 def contact(request:HttpRequest):
     
@@ -46,6 +47,7 @@ def contact(request:HttpRequest):
         email_message.send()
 
         messages.success(request, "Thank You for checking my website.", "alert-success")
+        return redirect('app_main:main_view')
 
     return render(request, 'app_main/contact.html' )
 
@@ -75,6 +77,12 @@ def send_investment_contract(user, project, amount):
     )
     email.attach('investment_contract.pdf', result.getvalue(), 'application/pdf')
     email.send()
+
+
+
+    
+def custom_404_view(request, exception):
+    return render(request, 'app_main/404.html', status=404)
 
 
 

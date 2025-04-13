@@ -51,15 +51,15 @@
           </tr>
         </thead>
         <tbody>
-          {% for inv in investments %}
-            <tr>
-              <td>{{ inv.project.title }}</td>
-              <td>${{ inv.amount }}</td>
-              <td>{{ inv.project.status }}</td>
-              <td>{{ inv.project.funding_percentage }}%</td>
-            </tr>
-          {% endfor %}
-        </tbody>
+            {% for inv in investments %}
+              <tr>
+                <td>{{ inv.project.project_name }}</td>
+                <td>${{ inv.amount }}</td>
+                <td>{{ inv.project.status }}</td>
+                <td>{{ inv.project.funding_percentage }}%</td>
+              </tr>
+            {% endfor %}
+          </tbody>          
       </table>
     </div>
   {% else %}

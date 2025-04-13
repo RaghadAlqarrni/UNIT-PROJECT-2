@@ -38,7 +38,7 @@
     height: 200px;
     object-fit: cover;
 }
-.img{
+.img {
     border-radius: 40px;
 }
 
@@ -58,6 +58,7 @@
 }
 </style>
 
+{% if user.is_authenticated and user.investorprofile %}
 <div class="card-container">
     {% for project in projects %}
         <div class="card">
@@ -66,7 +67,7 @@
             {% else %}
                 <img class="card-img-top" src="{% static 'img/saudi-bg.webp' %}" alt="Default image">
             {% endif %}
-            <div class="card-body ">
+            <div class="card-body">
                 <h5 class="card-title">{{ project.project_name }}</h5>
                 <p class="card-text">{{ project.description|truncatewords:20 }}</p>
                 <a href="{% url 'app_business:project_opp' project.id %}" class="btn">details →</a>
@@ -74,4 +75,10 @@
         </div>
     {% endfor %}
 </div>
+{% else %}
+<div class="container text-center my-5">
+    <h3 class="text-muted mb-3">You must be signed in as an investor to view investment opportunities.</h3>
+    <a href="{% url 'accounts:sign_in' %}?next={{ request.path }}" class="btn btn-outline-success">Sign In as Investor</a>
+</div>
+{% endif %}
 {% endblock %}

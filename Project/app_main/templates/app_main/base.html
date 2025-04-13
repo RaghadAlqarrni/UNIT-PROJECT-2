@@ -27,15 +27,12 @@
 
             <div class="collapse navbar-collapse gap-2" id="navbarNav">
                 <ul class="navbar-nav mx-auto text-center">
-                    <li class="nav-item"><span class="divider">|</span></li>
+                
                     <li class="nav-item"><a class="nav-link" href="{% url 'app_main:main_view' %}">Home</a></li>
-                    <li class="nav-item"><span class="divider">|</span></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'app_business:business_detail_view' %}">Investment opportunities</a></li>
-                    <li class="nav-item"><span class="divider">|</span></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'app_main:contact' %}">contact us</a></li>
-                    <li class="nav-item"><span class="divider">|</span></li>
+                    
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app_business:business_detail_view' %}">Investment opportunities</a></li>                    <li class="nav-item"><a class="nav-link" href="{% url 'app_main:contact' %}">contact us</a></li>
+                    
                     <li class="nav-item"><a class="nav-link" href="{% url 'app_main:about_view' %}">about us</a></li>
-                    <li class="nav-item"><span class="divider">|</span></li>
                 </ul>
 
                 {% if request.user.is_authenticated %}
@@ -79,11 +76,33 @@
         </div>
     </nav>
 
-    <!-- Page Content -->
-    <main class="container py-3">
-        {% block content %}{% endblock %}
-    </main>
-
+<!-- Page Content -->
+<main class="container py-3">
+    {% if messages %}
+      <div class="container mt-3">
+        {% for message in messages %}
+          {% if message.tags == 'success' %}
+            <div class="alert alert-dismissible fade show shadow-sm rounded-3" role="alert" style="background-color: #006C48; color: white; font-size: 0.95rem;">
+              <i class="fas fa-check-circle me-2"></i> {{ message }}
+          {% elif message.tags == 'error' %}
+            <div class="alert alert-dismissible fade show shadow-sm rounded-3" role="alert" style="background-color: #dc3545; color: white; font-size: 0.95rem;">
+              <i class="fas fa-times-circle me-2"></i> {{ message }}
+          {% elif message.tags == 'warning' %}
+            <div class="alert alert-dismissible fade show shadow-sm rounded-3" role="alert" style="background-color: #ffc107; color: black; font-size: 0.95rem;">
+              <i class="fas fa-exclamation-triangle me-2"></i> {{ message }}
+          {% else %}
+            <div class="alert alert-dismissible fade show shadow-sm rounded-3" role="alert" style="background-color: #f0f0f0; color: #333; font-size: 0.95rem;">
+              <i class="fas fa-info-circle me-2"></i> {{ message }}
+          {% endif %}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  
+    {% block content %}{% endblock %}
+  </main>
+  
     <!-- Footer -->
     <footer class="bg-light text-center py-2 mt-3">
         <hr class="my-2">
