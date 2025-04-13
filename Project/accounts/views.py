@@ -166,13 +166,19 @@ def investor_dashboard(request):
 def send_notification(user, message):
     Notification.objects.create(user=user, message=message)
 
-
 @login_required
 def business_profile_view(request):
+   
     profile = get_object_or_404(BusinessProfile, user=request.user)
 
-    return render(request, 'accounts/business_owner_profile.html', {'profile': profile})
+    
+    funding_percentage = profile.funding_percentage()
 
+    
+    return render(request, 'accounts/business_owner_profile.html', {
+        'profile': profile,
+        'funding_percentage': funding_percentage,
+    })
 
 @login_required
 def invest_in_project(request, project_id):

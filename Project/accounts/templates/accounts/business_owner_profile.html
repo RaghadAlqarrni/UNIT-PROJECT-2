@@ -5,29 +5,51 @@
 <div class="container my-5 text-white">
   <div class="card mb-4 p-4" style="background-color: #6AA894; border-radius: 12px;">
     <div class="d-flex align-items-center">
-      <img src="{{ owner.profile_image.url }}" class="rounded-circle me-3" width="80" height="80" alt="Owner Photo">
+      <img src="{% static 'img/profle.png' %}" class="rounded-circle me-3" width="80" height="80" alt="Project Image">
       <div>
-        <h4 class="mb-0">{{ owner.user.get_full_name }}</h4>
-        <p class="text-white-50 mb-0">{{ owner.user.email }}</p>
+        <h4 class="mb-0">{{ profile.company_name }}</h4>
+        <p class="text-white-50 mb-0">Founder: {{ profile.founder_name }}</p>
+        <p class="text-white-50 mb-0">Email: {{ profile.user.email }}</p>
       </div>
     </div>
   </div>
 
   <section class="mb-5">
-    <h5 class="text-warning">Project Statistics</h5>
+    <h5 class="text-warning">Project Details</h5>
     <div class="row">
-      <div class="col-md-4">Total Projects: <strong>{{ owner.projects.count }}</strong></div>
-      <div class="col-md-4">Successful Fundings: <strong>{{ owner.successful_projects }}</strong></div>
-      <div class="col-md-4">Avg. Investment Goal: <strong>{{ owner.avg_goal }}</strong></div>
+      <div class="col-md-6">Project Name: <strong>{{ profile.project_name }}</strong></div>
+      <div class="col-md-6">Company Name: <strong>{{ profile.company_name }}</strong></div>
+      <div class="col-md-6">Sector: <strong>{{ profile.get_sector_display }}</strong></div>
+      <div class="col-md-6">Location: <strong>{{ profile.business_location }}</strong></div>
+      <div class="col-md-6">Description: <strong>{{ profile.description }}</strong></div>
+      <div class="col-md-6">Revenue Model: <strong>{{ profile.revenue_model }}</strong></div>
+      <div class="col-md-6">Funding Required: <strong>${{ profile.funding_required }}</strong></div>
+      <div class="col-md-6">Amount Raised: <strong>${{ profile.amount_raised }}</strong></div>
+      <div class="col-md-6">Equity Offered: <strong>{{ profile.equity_offered }}%</strong></div>
+      <div class="col-md-6">Expected ROI: <strong>{{ profile.expected_roi }}%</strong></div>
+      <div class="col-md-6">Funding Percentage: <strong>{{ funding_percentage }}%</strong></div>
+      <div class="col-md-6">Status: <strong>{{ profile.get_status_display }}</strong></div>
+      <div class="col-md-6">Approval Status: <strong>{{ profile.is_approved|yesno:"Approved,Not Approved" }}</strong></div>
     </div>
   </section>
 
   <section>
-    <h5 class="text-warning">Business Preferences</h5>
+    <h5 class="text-warning">Documents</h5>
     <div class="row">
-      <div class="col-md-6">Industry: <strong>{{ owner.industry }}</strong></div>
-      <div class="col-md-6">Location: <strong>{{ owner.location }}</strong></div>
-      <div class="col-md-6">Funding Stages: <strong>{{ owner.funding_stage }}</strong></div>
+      <div class="col-md-6">
+        {% if profile.business_plan %}
+          <a href="{{ profile.business_plan.url }}" target="_blank">Business Plan</a>
+        {% else %}
+          <span>No Business Plan Uploaded</span>
+        {% endif %}
+      </div>
+      <div class="col-md-6">
+        {% if profile.pitch_deck %}
+          <a href="{{ profile.pitch_deck.url }}" target="_blank">Pitch Deck</a>
+        {% else %}
+          <span>No Pitch Deck Uploaded</span>
+        {% endif %}
+      </div>
     </div>
   </section>
 </div>
