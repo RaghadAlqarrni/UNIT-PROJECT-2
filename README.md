@@ -1,140 +1,73 @@
-# UNIT-PROJECT-2
+# Namaa Platform
 
-## Create a Project of your own choosing
+A two-sided investment platform that connects **business owners** seeking funding with **investors** looking for new opportunities. The platform allows businesses to present their ideas, while investors can browse and fund the ones that align with their interests.
 
-Base on what you’ve learned until now , create a project of your choosing. Impress us with your creativity and execution.
+---
 
+## 🌟 Project Description
 
-## Minimum Requirements
-- Use Django.
-- Use Templates & Template Inheritance.
-- Use static, media & dynamic urls as needed.
-- Organize your project in apps as needed.
-- Use models to represent you data.
-- Use a CSS library to style your website.
-- Must be responsive (good looking of big screens and small screens).
-- User Authentication & Authorization (register, login, logout, Limit access to some pages using permissions , etc.)
-- Use naming conventions & best practices.
-- Strive to make the user journey intuitive and complete.
+Namaa is an intuitive, fully responsive Django web application that facilitates communication and investment between startup owners and individual investors. Users can register either as an investor or a business owner, create detailed profiles, upload documents and project information, and interact through a clean and professional interface.
 
-## Use python-dotenv to save your sensitive data.
-- https://pypi.org/project/python-dotenv/
+---
 
+## 🔧 Features
 
-## Use a CDN or cloud storage provider to sore your large static files (videos, images, etc.), such as:
-- https://firebase.google.com/docs/storage
+- Dual signup system for Investors and Business Owners
+- Dynamic forms based on user type
+- Secure login/logout and user authentication
+- Investor profile with investment preferences and financial info
+- Business profile with pitch deck, business plan, financial documents
+- Project listing and funding requests
+- File uploads (images, PDFs, documents)
+- Bootstrap styling and responsive design
+- Admin control panel
+- Profile editing and password change
+- Notifications and messages (Planned)
+- Project status and dashboard for each user type
 
-## Use Git & Github to manage and track changes in your project.
-- At lease commit and sync the changes once at the end of everyday.
+---
 
-## Edit the README.md file to include (include the info at the top):
-- Project Name
-- Project Description
-- Features list.
-- User Stories (link or file)
-- UML (link or file)
-- Wireframe (link or file)
+## 🧑‍💻 User Stories
+  
+[(sandbox:/mnt/data/User_Stories_Namaa_Project.pdf)](https://drive.google.com/file/d/1qKXGxsX3UGYmep6odEbeluUUTAub6vpz/view?usp=sharing)
 
+---
 
-## Example Projects :
+## 📊 UML Diagram
 
 
-1. **Task Management System:**
-- **Overview:** Create a platform for managing tasks and projects within a team or organization.
-- **Features:**
-- User authentication and role-based access control.
-- Task creation, assignment, and tracking.
-- Project management with milestones.
-- File uploads and comments on tasks.
-- Notification system for task updates.
+You can view the UML diagram here:  
+[Lucidchart UML Diagram](https://lucid.app/lucidchart/9a99e921-94e2-4716-91f4-452c052809e8/edit?invitationId=inv_bcedc4e9-84cf-44b3-b17d-28c16a198ed3)
 
+---
 
+## 🎨 Wireframes
 
+- Framer Prototype (Navigation and Pages):  
+  [https://framer.com/projects/Untitled--HSZD0CgR7oOf12TdcSdA-aDHXJ?node=augiA20Il](https://framer.com/projects/Untitled--HSZD0CgR7oOf12TdcSdA-aDHXJ?node=augiA20Il)
 
-**Online Learning Platform:**
+- Figma Design (Layout & Components):  
+  [https://www.figma.com/design/dIfeUhxfcrLCYUbZRqLEMu/Untitled?node-id=0-1&t=D5HQOz0rMOQbEFpG-1](https://www.figma.com/design/dIfeUhxfcrLCYUbZRqLEMu/Untitled?node-id=0-1&t=D5HQOz0rMOQbEFpG-1)
 
-- **Overview:** Develop a platform for online courses, quizzes, and educational resources.
-- **Features:**
-- User registration and profile management.
-- Course creation and enrollment.
-- Quiz and assessment functionalities.
-- Progress tracking and certificates.
+---
 
+## 💡 Tech Stack
 
+- Django (Python)
+- SQLite (default dev database)
+- Bootstrap 4 / Custom CSS
+- HTML Templates with Inheritance
+- JavaScript (for dynamic forms)
+- python-dotenv for sensitive data
 
+---
 
-**Crowdfunding Platform:**
+## ✅ Requirements Met
 
-- **Overview:** Build a crowdfunding website where users can create campaigns and seek financial support for their projects.
-- **Features:**
-    - User profiles with project history.
-    - Campaign creation and customization.
-    - Payment integration for contributions.
-    - Progress tracking and updates.
-
-**Job Board and Recruitment System:**
-
-- **Overview:** Develop a platform for job seekers and employers to connect.
-- **Features:**
-    - User profiles with resumes.
-    - Job posting and application functionalities.
-    - Search and filter options for jobs.
-    - Employer dashboards for managing postings.
-
-
-**Inventory Management System:**
-
-- **Overview:** Build a system for tracking and managing inventory for businesses.
-- **Features:**
-    - User authentication with roles (e.g., admin, staff).
-    - Product catalog with stock levels.
-    - Order processing and tracking.
-    - Reporting and analytics.
-
-
-**Recipe Sharing Platform:**
-
-- **Overview:** Create a platform where users can share and discover recipes.
-- **Features:**
-    - User accounts with saved recipes.
-    - Recipe creation and editing.
-    - Search and categorization of recipes.
-    - User ratings and reviews.
-      
-## Resources:
-
-**Free high quality images :**
-
-- https://www.pexels.com/
-- https://unsplash.com
-
-**Free sounds website:**
-
-- https://mixkit.co/
-
-**Free stock videos:**
-
-- https://pixabay.com/videos/
-
-**Free Fonts:**
-
-- https://fonts.google.com
-
-**Free Icons**
-
-- https://fonts.google.com/icons
-- https://icons.getbootstrap.com/
-
-**CSS Library:**
-
-- https://getbootstrap.com/
-- https://get.foundation/index.html
-
-**CSS Animation libraries:**
-
-- https://animate.style
-- https://www.minimamente.com/project/magic/
-
-
-
- 
+- ✅ Django project with apps and models
+- ✅ Template inheritance and layout design
+- ✅ Static/media file handling
+- ✅ User Authentication & Authorization
+- ✅ Git & GitHub for version control
+- ✅ Deployment ready 
+- ✅ Responsive layout and clean UI

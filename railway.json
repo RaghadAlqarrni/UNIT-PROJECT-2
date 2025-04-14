@@ -1,0 +1,12 @@
+{
+    "$schema": "http://railway.app/railway.schema.json",
+    "build": {
+        "builder":"NIXPACKS"
+    },
+    "deploy": {
+        "startCommand":"cd Project && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn Project.wsgi"
+    }
+
+
+  }
+  
